@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "install": "concurrently \"npm run install:server\" \"npm run install:client\"",
+    "install:server": "cd server && npm install",
+    "install:client": "cd client && npm install",
+    "start:client": "cd client && npm start"
+  },
+  "dependencies": {
+    "concurrently": "^7.5.0",
+    "nodemon": "^2.0.20"
+  }
+}
