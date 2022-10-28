@@ -1,0 +1,154 @@
+:root {
+  --field-width: 120px;
+  --type-width: 140px;
+}
+
+#add-filter {
+  color: green;
+  font-size: 2.5rem;
+  transition: all 0.3s ease-in-out;
+  margin-left: 10px;
+}
+
+#add-filter:hover {
+  cursor: pointer;
+  transform: scale(1.25);
+}
+
+[id^="delete-icon"] {
+  color: rgb(205, 4, 4);
+  font-size: 1.75rem;
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  transition: all 0.2s;
+}
+
+#clear-product-filters {
+  color: rgb(205, 4, 4);
+  font-size: 1.75rem;
+  margin-right: 10px;
+  transition: all 0.1s;
+}
+
+#clear-product-filters:hover {
+  color: red;
+    transform: scale(1.15);
+
+}
+
+#clear-product-filters:active {
+  color: red;
+   transform: scale(1.05);
+}
+
+[id^="delete-col"]:hover > [id^="delete-icon"] {
+  /* transform: scale(-1); */
+  margin-left: 5px;
+  color: red;
+  cursor: pointer;
+}
+
+[id^="delete-icon"]:active {
+  transform: scale(-.95);
+  color: red;
+}
+
+#product-filters {
+  margin-left: 5px;
+  margin-bottom: 20px;
+  padding: 10px 20px 20px 20px;
+  box-shadow: -0px 0px 15px #4a4a4a6e;
+  border: 1px solid #00000029;
+  border-radius: 6px;
+  background-color: var(--div);
+  transition: all 0.3s ease-in-out;
+}
+
+.filter-row {
+  margin: 5px 0px;
+  padding: 8px 5px;
+  box-shadow: -0px 0px 5px #838282b6;
+  border: 1px solid #00000031;
+  border-radius: 3px;
+  background-color: var(--div);
+  justify-content: flex-start;
+  transition: all 0.2s ease-in-out;
+}
+
+select[id^="filter-field"] {
+  width: 120px;
+  margin: 5px;
+}
+select[id^="filter-type"] {
+  width: 140px;
+  margin: 5px;
+}
+input[id^="filter-value"] {
+  /* max-width: 100%; */
+  max-width: calc(100% - var(--field-width) - var(--type-width) - 100px);
+
+  margin: 5px;
+  /* border-color: red */
+  transition: all 0.2s ease-in-out;
+}
+
+#filter-rows {
+  margin-top: 10px;
+}
+
+.new-row {
+  background-color: rgba(2, 87, 2, 0.692);
+  opacity: 0;
+  /* position: absolute; */
+  margin-left: 2000px;
+  transition: 0.3s all;
+}
+
+.delete-col {
+  width: 50px;
+  flex: 0;
+}
+
+/* @media screen and (max-width: 1850px) {
+  input[id^="filter-value"] {
+    max-width: 350px;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  input[id^="filter-value"] {
+    max-width: 250px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  input[id^="filter-value"] {
+    max-width: 150px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .filter-row {
+    min-width: 500px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  input[id^="filter-value"] {
+    width: 350px;
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 824px) {
+  input[id^="filter-value"] {
+    width: 250px;
+    max-width: none;
+  }
+}
+
+@media screen and (max-width: 775px) {
+  .filter-row {
+    width: 600px;
+  }
+} */
