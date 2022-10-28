@@ -1,0 +1,38 @@
+button[id^="form-"] {
+  transition: all 0.2s ease-in-out;
+}
+
+#content-loading {
+  position: fixed;
+  top: -40px;
+}
+
+.carousel-indicators [data-bs-target] {
+  width: 50px;
+  height: 50px;
+}
+
+#sidenav-body {
+  display: none;
+}
+
+#product-sidenav {
+  width: 95%;
+}
+
+.carousel-control-next,
+.carousel-control-prev /*, .carousel-indicators */ {
+  filter: invert(100%);
+}
+#product-form {
+  box-shadow: -0px 0px 15px #4a4a4a6e;
+  border: 1px solid #00000029;
+  border-radius: 6px;
+  background-color: var(--div);
+  width: 50%;
+  padding: 20px;
+}
+
+.offcanvas-header{
+  align-items: start;
+}
