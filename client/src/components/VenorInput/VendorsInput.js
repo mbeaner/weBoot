@@ -1,12 +1,12 @@
-import React, { Component, useState, useEffect } from "react";
-import ReactDOM from "react-dom/client";
+import React, {  useState, useEffect } from "react";
+// import ReactDOM from "react-dom/client";
 import { matchSorter } from "match-sorter";
 import { Tabulator } from "tabulator-tables";
 import { MultiDownshift, vendors } from "./index.js";
-import { TbLeaf } from "react-icons/tb/index.esm.js";
+// import { TbLeaf } from "react-icons/tb/index.esm.js";
 import './style.css'
 
-export default function VendorsInput({}) {
+export default function VendorsInput() {
   const [allItems, setAllItems] = useState();
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
