@@ -110,7 +110,7 @@ export default function ProductSidenav({
       show={show}
       onHide={() => {
         setShow(false);
-        setLoading(true);
+        setLoading(false);
         setVariants([]);
         setTitle("");
         setId("");
@@ -124,7 +124,14 @@ export default function ProductSidenav({
           className="align-items-end d-flex flex-column"
           onClick={handleClick}
         >
-          <FaWindowClose id="close-filters" onClick={() => setShow(false)} />
+          <FaWindowClose id="close-filters" onClick={() => {
+            setShow(false)
+            setLoading(false);
+            setVariants([]);
+            setTitle("");
+            setId("");
+            setImages([]);
+          }} />
           <div>
             <TbArrowBigLeftLines
               className="resize"
