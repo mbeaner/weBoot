@@ -1,11 +1,12 @@
 export default function ProductCard(product) {
-  const { id, name, description, category, price, vendor, image } = product;
+  const { id, title, description, category, price, images } = product;
+  const image = images[0];
   return `
-    <div id='product-${id}'>
+    <div id='product-row-${id}'>
       <div class='card d-flex flex-row border-0' >
       <img src=${image} class='card-img-top ' alt='...' style="width:250px"/>
         <div class='card-body '>
-          <h4 class='card-title'>${name}</h4>
+          <h4 class='card-title'>${title}</h4>
           <h3 class='card-text '>
           $${price}</h3>
           <p class='card-text card-des'><b>Description:</b> <br/>  ${description}</p>

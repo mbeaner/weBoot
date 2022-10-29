@@ -16,28 +16,60 @@ function ProductTable() {
   const [products, setProducts] = useState([
     {
       id: 1,
-      image: "/assets/images/send-help.png",
-      name: "Send Help",
+      images: ["/assets/images/send-help.png"],
+      title: "Send Help",
       description: "Send Help",
       category: "Funny Shirts",
       price: 25,
+      compare_at_price: null,
       vendor: "weBoot",
+      upc: Math.floor(Math.random() * 1000000000),
       variants: [
-        { id: 1, size: "S", color: "Black", inventory: 10 },
-        { id: 2, size: "M", color: "Black", inventory: 15 },
-        { id: 3, size: "L", color: "Black", inventory: 12 },
-        { id: 4, size: "XL", color: "Black", inventory: 7 },
+        {
+          id: 1,
+          size: "S",
+          color: "Black",
+          inventory: 10,
+          image: "/assets/images/send-help.png",
+        },
+        {
+          id: 2,
+          size: "M",
+          color: "Black",
+          inventory: 15,
+          image: "/assets/images/send-help.png",
+        },
+        {
+          id: 3,
+          size: "L",
+          color: "Black",
+          inventory: 12,
+          image: "/assets/images/send-help.png",
+        },
+        {
+          id: 4,
+          size: "XL",
+          color: "Black",
+          inventory: 7,
+          image: "/assets/images/send-help.png",
+        },
       ],
     },
     {
       id: 2,
-      image: "/assets/images/mim-hat.png",
-      name: "Mim Hat",
+      images: ["/assets/images/mim-hat.png"],
+      title: "Mim Hat",
+      sku: "MH-001",
       description: "Imitation is the sincerest form of flattery",
       category: "Awesome Hats",
       price: 100,
+      compare_at_price: 120,
       vendor: "weBoot",
-      variants: [{ id: 1, size: "OSFM", color: "Brown/Red", Inventory: 100 }],
+      upc: Math.floor(Math.random() * 1000000000),
+      variants: [{
+        id: 1, size: "OSFM", color: "Brown/Red", Inventory: 100,
+        image: "/assets/images/mim-hat.png"
+      }],
     },
   ]);
   const [product, setProduct] = useState({});
@@ -66,15 +98,17 @@ function ProductTable() {
         },
         {
           title: "Image",
-          field: "image",
-          formatter: (cell) => {
-            return `<img style="width:75px;height:75px" src="${cell.getValue()}"/>`;
-          },
+          field: "images",
+          // formatter: (cell) => {
+          //   const image = cell.getValue()[0]
+          //   console.log('image', image)
+          //   return `<img style="width:75px;height:75px" src="${image}"/>`;
+          // },
           maxWidth: 100,
         },
         {
-          title: "Name",
-          field: "name",
+          title: "Title",
+          field: "title",
         },
         {
           title: "Description",
@@ -124,7 +158,11 @@ function ProductTable() {
   return (
     <>
       <ProductSidenav
-        props = {{product, show, setShow, loading, setLoading}}
+        show={show}
+        setShow={setShow}
+        product={product}
+        loading={loading}
+        setLoading={setLoading}
       />
       <Container>
         <Row>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Tabulator } from "tabulator-tables";
 import FilterRow from "./Row.js";
@@ -47,7 +48,7 @@ function ProductFilter() {
       if (f.row === thisRow) {
         console.log("change", change, type);
         if (change === "value" && type === "regex") {
-          const valStr = value.trim().replace(/  /g, " ").replace(/ /g, "|");
+          const valStr = value.trim().replace(/ {2}/g, " ").replace(/ /g, "|");
           console.log("valStr", valStr);
           const regex =
             value !== "" ? new RegExp(`^(?!.*(${valStr})).*$`, "i") : "";

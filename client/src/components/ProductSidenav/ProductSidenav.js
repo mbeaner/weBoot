@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Offcanvas, Button, Row, Col } from "react-bootstrap";
 import { uniq, pick } from "lodash";
@@ -50,7 +51,7 @@ export default function ProductSidenav({
     setLoading(false);
     // const data = variants;
     // setOriginalData(data);
-  }, [setLoading, variants]);
+  }, [variants]);
 
   useEffect(() => {
     console.log("loading", loading);
@@ -58,8 +59,8 @@ export default function ProductSidenav({
       $("#content-loading").show();
       $("#sidenav-body").hide();
     } else {
-      $("#content-loading").fadeOut(450);
-      $("#sidenav-body").fadeIn(1000);
+      $("#content-loading").fadeOut(250);
+      $("#sidenav-body").fadeIn(400);
     }
   }, [loading]);
 
@@ -109,6 +110,12 @@ export default function ProductSidenav({
       show={show}
       onHide={() => {
         setShow(false);
+        setLoading(true);
+        setVariants([]);
+        setTitle("");
+        setId("");
+        setImages([]);
+        
       }}
     >
       <Offcanvas.Header>

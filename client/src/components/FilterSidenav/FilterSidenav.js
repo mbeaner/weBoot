@@ -10,12 +10,12 @@ import {
   TbArrowBigRightLines,
 } from "react-icons/tb/index.esm.js";
 import React, { useState, useEffect } from "react";
-import { setAdvFilters } from "../AdvancedFilter/index.js";
-import { Tabulator } from "tabulator-tables";
+// import { setAdvFilters } from "../AdvancedFilter/index.js";
+// import { Tabulator } from "tabulator-tables";
 import $ from "jquery";
 import "./style.css";
-import setHeight from "../../helpers/setHeight.js";
-import { pick } from "lodash";
+// import setHeight from "../../helpers/setHeight.js";
+// import { pick } from "lodash";
 
 export default function FilterSidenav({}) {
   const [show, setShow] = useState(false);

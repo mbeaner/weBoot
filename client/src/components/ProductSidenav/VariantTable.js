@@ -1,5 +1,5 @@
 import { TabulatorFull as Tabulator } from "tabulator-tables";
-import React, { useState, useEffect } from "react";
+import React, {  useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 // import { ImageSelect } from "../index.js";
 import $ from "jquery";
@@ -73,7 +73,6 @@ export default function VariantTable({ id, title, variants, setTable }) {
         },
         { title: "Variant ID", field: "id", responsive: 1, editable: false },
         { title: "Title", field: "title" },
-        { title: "SKU", field: "sku" },
         {
           title: "Price",
           field: "price",
@@ -86,24 +85,23 @@ export default function VariantTable({ id, title, variants, setTable }) {
           hozAlign: "center",
         },
         {
-          title: "Compare At Price",
+          title: "compare_at_price",
           field: "compare_at_price",
           maxWidth: 75,
           formatter: "money",
           hozAlign: "center",
         },
-        { title: "Option 1", field: "option1" },
-        { title: "Option 2", field: "option2" },
-        { title: "Option 3", field: "option3", responsive: 2 },
+        { title: "Size", field: "size" },
+        { title: "Color", field: "color" },
         {
           title: "UPC",
-          field: "barcode",
+          field: "upc",
           hozAlign: "center",
           headerHozAlign: "center",
         },
         {
-          title: "Inv.",
-          field: "inventory_quantity",
+          title: "Inventory",
+          field: "inventory",
           maxWidth: 100,
           editable: false,
           hozAlign: "center",
