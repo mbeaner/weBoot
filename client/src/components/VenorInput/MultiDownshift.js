@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Downshift from "downshift";
 import { Menu, Item, BadgeValue } from "./index.js";
 import { Button, Form, InputGroup, Container, Row, Col } from "react-bootstrap";
@@ -70,7 +70,7 @@ function MultiDownshift({
         event.stopPropagation();
         return;
       case 46: // backspace
-        if (!inputValue && deleteRemoves) {
+        if (!inputValue) {
           event.preventDefault();
           popValue();
         }

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Offcanvas, Button, Row, Col } from "react-bootstrap";
 import { uniq, pick } from "lodash";
@@ -32,14 +33,15 @@ export default function ProductSidenav({
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
   const [table, setTable] = useState(null);
-  const [originalData, setOriginalData] = useState(null);
+  // const [originalData, setOriginalData] = useState(null);
 
   useEffect(() => {
     if (!show || !product.id) return;
     console.log("sideNav product", product);
+    setVariants(product.variants);
     setTitle(product.title);
     setId(product.id);
-  }, [show]);
+  }, [show, product]);
 
   useEffect(() => {
     console.log("variants", variants);
@@ -47,8 +49,8 @@ export default function ProductSidenav({
     console.log(imgArr);
     setImages(imgArr);
     setLoading(false);
-    const data = variants;
-    setOriginalData(data);
+    // const data = variants;
+    // setOriginalData(data);
   }, [variants]);
 
   useEffect(() => {
@@ -57,8 +59,8 @@ export default function ProductSidenav({
       $("#content-loading").show();
       $("#sidenav-body").hide();
     } else {
-      $("#content-loading").fadeOut(450);
-      $("#sidenav-body").fadeIn(1000);
+      $("#content-loading").fadeOut(250);
+      $("#sidenav-body").fadeIn(400);
     }
   }, [loading]);
 
@@ -76,15 +78,10 @@ export default function ProductSidenav({
       const rows = table.getSelectedRows();
       const dataFields = [
         "id",
-        "title",
-        "price",
-        "sku",
-        "compare_at_price",
-        "option1",
-        "option2",
-        "option3",
-        "barcode",
-        "tax_code",
+        "name",
+        "size",
+        "color",
+        "inventory"
       ];
       // let updated = 0
       rows.forEach(async (row) => {
@@ -113,6 +110,12 @@ export default function ProductSidenav({
       show={show}
       onHide={() => {
         setShow(false);
+        setLoading(true);
+        setVariants([]);
+        setTitle("");
+        setId("");
+        setImages([]);
+        
       }}
     >
       <Offcanvas.Header>
@@ -167,7 +170,7 @@ export default function ProductSidenav({
           <VariantTable
             id={id}
             title={title}
-            setVariants={setVariants}
+            variants={variants}
             setTable={setTable}
           />
         </Row>

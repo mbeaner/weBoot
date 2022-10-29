@@ -5,21 +5,7 @@
   background-size: cover;
 }
 
-#close-filters,
-#close-product {
-  font-family: "Oswald", sans-serif;
-  color: rgb(205, 4, 4);
-  font-size: 1.25rem;
-  margin: 5px 5px 10px 5px;
-  transition: all 0.2s ease;
-}
 
-#close-filters:hover,
-#close-product:hover {
-  cursor: pointer;
-  color: red;
-  transform: scale(1.25);
-}
 
 .show-filters {
   position: fixed;
@@ -52,18 +38,7 @@
   transition: all 0.2s ease-in-out;
 }
 
-.resize {
-  font-size: 1.5em;
-  color: rgb(205, 4, 4);
-  margin: 0 3px;
-  transition: all 0.2s ease-in-out;
-}
 
-.resize:hover {
-  cursor: pointer;
-  color: red;
-  transform: scale(1.25);
-}
 
 @media screen and (max-width: 1100px) {
   #filter-sidenav,

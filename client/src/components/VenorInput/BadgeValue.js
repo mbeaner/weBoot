@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.css";
 import { Badge, CloseButton } from "react-bootstrap";
 export default function BadgeValue({ tag, onRemove }) {
@@ -28,9 +28,9 @@ export default function BadgeValue({ tag, onRemove }) {
     }
   };
 
-  const inputRef = (c) => {
-    input = c;
-  };
+  // const inputRef = (c) => {
+  //   input = c;
+  // };
 
   return (
     <Badge style={{fontSize: "1.1em"} } className="vendor-badge m-1" bg="" pill>
