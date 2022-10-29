@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Carousel, Image } from "react-bootstrap";
 import $ from "jquery";
 
-function imageCarousel({ images, show }) {
+function ImageCarousel({ images, show }) {
   const [indicators, setIndicators] = useState([]);
   const [numImages, setNumImages] = useState(0);
   const [carouselInt, setCarouselInt] = useState(null);
@@ -46,7 +46,7 @@ function imageCarousel({ images, show }) {
   }, [show]);
 
   useEffect(() => {
-    console.log("imageCarousel images", images, images.length);
+    console.log("ImageCarousel images", images, images.length);
     console.log("carouselInt", carouselInt);
     clearInterval(carouselInt);
     if (!images.length) {
@@ -69,7 +69,7 @@ function imageCarousel({ images, show }) {
   }, [images]);
 
   useEffect(() => {
-    console.log("imageCarousel indicators", indicators);
+    console.log("ImageCarousel indicators", indicators);
     if (indicators.length === 0) return;
     const activateImage = (e) => {
       const image = Number(e.target.id.split("-")[1]) - 1;
@@ -104,4 +104,4 @@ function imageCarousel({ images, show }) {
   );
 }
 
-export { imageCarousel as Carousel };
+export { ImageCarousel as Carousel };

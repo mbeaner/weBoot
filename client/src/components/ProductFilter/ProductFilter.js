@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Tabulator } from "tabulator-tables";
 import FilterRow from "./Row.js";
 import { remove, map } from "lodash";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { MdOutlineDeleteSweep } from "react-icons/md/index.esm.js";
 import { FcAddRow } from "react-icons/fc/index.esm.js";
 import $ from "jquery";
@@ -155,7 +155,6 @@ function ProductFilter() {
     // ${}
     setFilter([{ field: "title", type: "like", value: "", row: 1 }]);
     setNumRows(1);
-    setTotalRows(1);
   };
 
   const addRow = () => {

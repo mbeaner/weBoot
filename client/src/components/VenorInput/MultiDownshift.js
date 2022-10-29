@@ -70,7 +70,7 @@ function MultiDownshift({
         event.stopPropagation();
         return;
       case 46: // backspace
-        if (!inputValue && deleteRemoves) {
+        if (!inputValue) {
           event.preventDefault();
           popValue();
         }

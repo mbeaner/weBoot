@@ -32,14 +32,15 @@ export default function ProductSidenav({
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
   const [table, setTable] = useState(null);
-  const [originalData, setOriginalData] = useState(null);
+  // const [originalData, setOriginalData] = useState(null);
 
   useEffect(() => {
     if (!show || !product.id) return;
     console.log("sideNav product", product);
+    setVariants(product.variants);
     setTitle(product.title);
     setId(product.id);
-  }, [show]);
+  }, [show, product]);
 
   useEffect(() => {
     console.log("variants", variants);
@@ -47,9 +48,9 @@ export default function ProductSidenav({
     console.log(imgArr);
     setImages(imgArr);
     setLoading(false);
-    const data = variants;
-    setOriginalData(data);
-  }, [variants]);
+    // const data = variants;
+    // setOriginalData(data);
+  }, [setLoading, variants]);
 
   useEffect(() => {
     console.log("loading", loading);
@@ -76,15 +77,10 @@ export default function ProductSidenav({
       const rows = table.getSelectedRows();
       const dataFields = [
         "id",
-        "title",
-        "price",
-        "sku",
-        "compare_at_price",
-        "option1",
-        "option2",
-        "option3",
-        "barcode",
-        "tax_code",
+        "name",
+        "size",
+        "color",
+        "inventory"
       ];
       // let updated = 0
       rows.forEach(async (row) => {
@@ -167,7 +163,7 @@ export default function ProductSidenav({
           <VariantTable
             id={id}
             title={title}
-            setVariants={setVariants}
+            variants={variants}
             setTable={setTable}
           />
         </Row>

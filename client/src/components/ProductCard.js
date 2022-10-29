@@ -10,7 +10,6 @@ export default function ProductCard(product) {
           $${price}</h3>
           <p class='card-text card-des'><b>Description:</b> <br/>  ${description}</p>
           <p class='card-text card-cat'> <b>Category:</b> <br/> ${category}</p>
-          
       </div>
       </div>
     </div>`;

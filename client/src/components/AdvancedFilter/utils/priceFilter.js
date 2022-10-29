@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const priceFilter = ({
   filterGroup,
   minPrice,

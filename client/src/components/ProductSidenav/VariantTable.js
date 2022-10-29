@@ -1,33 +1,18 @@
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
-import { ImageSelect } from "../index.js";
+// import { ImageSelect } from "../index.js";
 import $ from "jquery";
-import axios from "axios";
+// import axios from "axios";
 
 // import { variants } from '../helpers/popSidenav.js'
 
-export default function VariantTable({ id, title, setVariants, setTable }) {
-  const [thisTable, setThisTable] = useState(null);
-
-  const getVariants = async () => {
-    const { data } = await axios.get(`/variants/${id}`);
-    console.log("setting thisTable data", data, thisTable);
-    thisTable.setData(data);
-    setVariants(data);
-  };
+export default function VariantTable({ id, title, variants, setTable }) {
 
   useEffect(() => {
-    console.log("updating", id, thisTable);
-    if (thisTable) getVariants();
-    setTable(thisTable);
-  }, [id, thisTable]);
-
-
-  useEffect(() => {
-    console.log("varTable mounted");
+    console.log("varTable mounted", variants);
     let varTable = new Tabulator("#variant-table", {
-      data: [],
+      data: variants,
       layout: "fitColumns",
       // selectable: true,
       selectableRangeMode: "click",
@@ -151,9 +136,9 @@ export default function VariantTable({ id, title, setVariants, setTable }) {
       $("#download-var-table").on("click", () => {
         varTable.download("xlsx", `${id}-${title}.xlsx`);
       });
-      setThisTable(varTable);
+      setTable(varTable);
     });
-  }, []);
+  }, [id, setTable, title, variants]);
   return (
     <Container fluid className="d-flex justify-content-center flex-column">
       <Row className="justify-content-start">
@@ -164,7 +149,6 @@ export default function VariantTable({ id, title, setVariants, setTable }) {
           <Button className="btn btn-success m-4" id="download-var-table">
             <i className="bi bi-download"></i>
           </Button>
-          <ImageSelect />
         </Col>
       </Row>
       <div
