@@ -107,6 +107,7 @@ export default function ProductSidenav({
     <Offcanvas
       id="product-sidenav"
       className=""
+      placement="end"
       show={show}
       onHide={() => {
         setShow(false);
@@ -115,36 +116,37 @@ export default function ProductSidenav({
         setTitle("");
         setId("");
         setImages([]);
-        
       }}
     >
       <Offcanvas.Header>
-        <Offcanvas.Title id="productTitle">{`${title} ${id}`}</Offcanvas.Title>{" "}
         <Col
-          className="align-items-end d-flex flex-column"
+          className="align-items-start d-flex flex-column"
           onClick={handleClick}
         >
-          <FaWindowClose id="close-filters" onClick={() => {
-            setShow(false)
-            setLoading(false);
-            setVariants([]);
-            setTitle("");
-            setId("");
-            setImages([]);
-          }} />
+          <FaWindowClose
+            id="close-filters"
+            onClick={() => {
+              setShow(false);
+              setLoading(false);
+              setVariants([]);
+              setTitle("");
+              setId("");
+              setImages([]);
+            }}
+          />
           <div>
             <TbArrowBigLeftLines
               className="resize"
               onClick={() => {
                 const currentWidth = $("#product-sidenav").width();
-                $("#product-sidenav").width(currentWidth - 300);
+                $("#product-sidenav").width(currentWidth + 300);
               }}
             />
             <TbArrowBigRightLines
               className="resize"
               onClick={() => {
                 const currentWidth = $("#product-sidenav").width();
-                $("#product-sidenav").width(currentWidth + 300);
+                $("#product-sidenav").width(currentWidth - 300);
               }}
             />
           </div>
@@ -169,6 +171,9 @@ export default function ProductSidenav({
             </Button>
           </div>
         </Col>
+        <Offcanvas.Title className="">
+          {`${title}`}
+        </Offcanvas.Title>{" "}
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Row id="sidenav-body" className="">

@@ -1,6 +1,6 @@
 #filter-sidenav {
-  width: 50%;
-  min-width: 600px;
+  width: 25%;
+  min-width: 400px;
   background: url('https://img.freepik.com/free-vector/shiny-white-gray-background-with-wavy-lines_1017-25101.jpg?w=2000') no-repeat fixed;
   background-size: cover;
 }
@@ -14,7 +14,7 @@
   background-color: white;
   border-radius: 50%;
   top: 25px;
-  right: 25px;
+  left: 25px;
   color: var(--green);
   filter:drop-shadow( 0 0px 4px rgba(0, 0, 0, 0.328));
   transition: all .2s ease-out
@@ -22,15 +22,11 @@
 
 #show-filters:hover {
   color: var(--green);
-  
-   /* transform: scaleX(-1);*/
-   /* transform: scaleY(-1);  */
-   transform: rotate(-180deg);
-  /* box-shadow: 0 0 0 0.25rem rgba(11, 181, 51, 0.274); */ 
+   transform: rotate(180deg);
 }
 
 .offcanvas-backdrop.show {
-  opacity: 0.25;
+  opacity: 0;
 }
 
 #filter-sidenav,
