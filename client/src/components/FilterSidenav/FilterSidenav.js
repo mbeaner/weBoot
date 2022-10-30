@@ -1,8 +1,12 @@
-import { AdvancedFilter, ProductFilter } from "../index.js";
+import {
+  // AdvancedFilter,
+  // EmpProductFilter,
+  CustProductFilter,
+} from "../index.js";
 import { Offcanvas, Row, Col } from "react-bootstrap";
 import {
   BsFilterCircleFill,
-  BsFillArrowRightCircleFill,
+  BsFillArrowLeftCircleFill,
 } from "react-icons/bs/index.esm.js";
 import { FaWindowClose } from "react-icons/fa/index.esm.js";
 import {
@@ -10,15 +14,11 @@ import {
   TbArrowBigRightLines,
 } from "react-icons/tb/index.esm.js";
 import React, { useState, useEffect } from "react";
-// import { setAdvFilters } from "../AdvancedFilter/index.js";
-// import { Tabulator } from "tabulator-tables";
 import $ from "jquery";
 import "./style.css";
-// import setHeight from "../../helpers/setHeight.js";
-// import { pick } from "lodash";
 
 export default function FilterSidenav({}) {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   const [hover, setHover] = useState(false);
 
   useEffect(() => {
@@ -28,7 +28,6 @@ export default function FilterSidenav({}) {
 
   useEffect(() => {
     console.log("filter-sidenav mounted");
-
   }, []);
 
   function ShowFilters() {
@@ -49,7 +48,7 @@ export default function FilterSidenav({}) {
             setHover(false);
           }}
         />
-        <BsFillArrowRightCircleFill
+        <BsFillArrowLeftCircleFill
           className={`show-filters ${
             hover ? "opacity-100 pe-auto" : "opacity-0 pe-none"
           }`}
@@ -74,11 +73,12 @@ export default function FilterSidenav({}) {
       <Offcanvas
         id="filter-sidenav"
         show={show}
-        placement="end"
+        // placement="end"
         scroll={true}
-        backdrop={true}
+        backdrop={false}
         onHide={() => {
           setShow(false);
+          setHover(false);
         }}
       >
         <Offcanvas.Header className="justify-content-between">
@@ -91,22 +91,23 @@ export default function FilterSidenav({}) {
               className="resize"
               onClick={() => {
                 const currentWidth = $("#filter-sidenav").width();
-                $("#filter-sidenav").width(currentWidth + 300);
+                $("#filter-sidenav").width(currentWidth - 300);
               }}
             />
             <TbArrowBigRightLines
               className="resize"
               onClick={() => {
                 const currentWidth = $("#filter-sidenav").width();
-                $("#filter-sidenav").width(currentWidth - 300);
+                $("#filter-sidenav").width(currentWidth + 300);
               }}
             />
           </div>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Row>
-            <ProductFilter />
-            <AdvancedFilter />
+            <CustProductFilter />
+            {/* <ProductFilter /> */}
+            {/* <AdvancedFilter /> */}
           </Row>
         </Offcanvas.Body>
       </Offcanvas>

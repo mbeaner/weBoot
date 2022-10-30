@@ -36,6 +36,19 @@ button[id^="form-"] {
   padding: 20px;
 }
 
-.offcanvas-header{
+.offcanvas-header {
   align-items: start;
+  height: 100px;
+}
+
+#product-title {
+  margin: 0 auto;
+}
+
+.offcanvas-title {
+  font-size: 3em;
+  font-weight: 800;
+  width: calc(50% + 120px);
+  /* text-align: center; */
+  margin: 0 auto;
 }

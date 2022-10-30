@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Tabulator } from "tabulator-tables";
-import FilterRow from "./Row.js";
+import FilterRow from "./EmpRow.js";
 import { remove, map } from "lodash";
 import { Container, Row, Col } from "react-bootstrap";
 import { MdOutlineDeleteSweep } from "react-icons/md/index.esm.js";
@@ -9,9 +9,9 @@ import { FcAddRow } from "react-icons/fc/index.esm.js";
 import $ from "jquery";
 import "./style.css";
 
-function ProductFilter() {
+function EmpProductFilter() {
   const [filter, setFilter] = useState(
-    JSON.parse(localStorage.getItem("productFilter")) || [
+    JSON.parse(localStorage.getItem("empProductFilter")) || [
       { field: "title", type: "like", value: "", row: 1 },
     ]
   );
@@ -100,7 +100,7 @@ function ProductFilter() {
   };
 
   useEffect(() => {
-    console.log("ProductFilter mounted", filter);
+    console.log("EmpProductFilter mounted", filter);
   }, []);
 
   useEffect(() => {
@@ -116,7 +116,7 @@ function ProductFilter() {
   useEffect(() => {
     console.log("filtering table", filter, numRows,  rows, update);
     // setProdFilter(filter);
-    localStorage.setItem("productFilter", JSON.stringify(filter));
+    localStorage.setItem("empProductFilter", JSON.stringify(filter));
     if (update?.change !== "value") {
       const newRows = filter?.map((f, i) => {
         console.log("adding row", f);
@@ -201,4 +201,4 @@ function ProductFilter() {
   );
 }
 
-export default ProductFilter;
+export default EmpProductFilter;

@@ -5,12 +5,13 @@ import "tabulator-tables/dist/css/tabulator_bootstrap5.min.css";
 import { Container, Row } from "react-bootstrap";
 import {
   ProductCard,
-  ProductFilter,
+  EmpProductFilter,
   ProductSidenav,
 } from "./components/index.js";
 
 import "./App.css";
 import "bootstrap";
+import { ToastContainer } from "react-toastify";
 
 function ProductTable() {
   const [products, setProducts] = useState([
@@ -19,10 +20,12 @@ function ProductTable() {
       images: ["/assets/images/send-help.png"],
       title: "Send Help",
       description: "Send Help",
-      category: "Funny Shirts",
+      category: "Shirts",
       price: 25,
       compare_at_price: null,
       vendor: "weBoot",
+      tags: ["Funny", "Shirts", "Cotton", "Top", "Graphic"],
+      reviews: [{ rating: 5, body: "This is a great shirt!" }],
       upc: Math.floor(Math.random() * 1000000000),
       variants: [
         {
@@ -61,15 +64,22 @@ function ProductTable() {
       title: "Mim Hat",
       sku: "MH-001",
       description: "Imitation is the sincerest form of flattery",
-      category: "Awesome Hats",
+      category: "Hats",
       price: 100,
       compare_at_price: 120,
       vendor: "weBoot",
+      tags: ["Hats", "Headwear", "Straw", "Summer", "Beach", "Garden"],
+      reviews: [{ rating: 5, body: "This is a great hat!" }],
       upc: Math.floor(Math.random() * 1000000000),
-      variants: [{
-        id: 1, size: "OSFM", color: "Brown/Red", Inventory: 100,
-        image: "/assets/images/mim-hat.png"
-      }],
+      variants: [
+        {
+          id: 1,
+          size: "OSFM",
+          color: "Brown/Red",
+          Inventory: 100,
+          image: "/assets/images/mim-hat.png",
+        },
+      ],
     },
   ]);
   const [product, setProduct] = useState({});
@@ -127,12 +137,20 @@ function ProductTable() {
           field: "price",
         },
         {
-          title: "Product",
-          field: "product",
+          title: "Compare At Price",
+          field: "compare_at_price",
         },
         {
           title: "Reviews",
           field: "reviews",
+        },
+        {
+          title: "UPC",
+          field: "upc",
+        },
+        {
+          title: "Tags",
+          field: "tags",
         },
       ],
       rowFormatter: (row) => {
@@ -151,7 +169,7 @@ function ProductTable() {
       console.log("row click");
       setProduct(row.getData());
       setShow(true);
-      setLoading(true)
+      setLoading(true);
     });
   }, [products]);
 
@@ -164,6 +182,7 @@ function ProductTable() {
         loading={loading}
         setLoading={setLoading}
       />
+      <ToastContainer />
       <Container>
         <Row>
           <div id="product-table" className="compact" />
