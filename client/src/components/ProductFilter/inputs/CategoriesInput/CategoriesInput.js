@@ -1,33 +1,34 @@
-import React, {  useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 // import ReactDOM from "react-dom/client";
 import { matchSorter } from "match-sorter";
-import { Tabulator } from "tabulator-tables";
-import { MultiDownshift, vendors } from "./index.js";
+// import { Tabulator } from "tabulator-tables";
+import { MultiDownshift, categories } from "./index.js";
 // import { TbLeaf } from "react-icons/tb/index.esm.js";
-import './style.css'
+import "./style.css";
 
-export default function VendorsInput() {
+export default function CategoriesInput() {
   const [allItems, setAllItems] = useState();
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
   //Mount
   useEffect(() => {
-    const allVendors = vendors.sort((a, b) => a - b);
-    console.log("allVendors", allVendors);
-    setAllItems(allVendors);
-    setItems(allVendors);
-    const prevVendors = JSON.parse(
-      localStorage.getItem("selectedVendors")
+    const allCategories = categories.sort((a, b) => a - b);
+    console.log("allCategories", allCategories);
+    setAllItems(allCategories);
+    setItems(allCategories);
+    const prevCategories = JSON.parse(
+      localStorage.getItem("selectedCategories")
     )?.split(",");
-    console.log("prevVendors", prevVendors);
+    console.log("prevCategories", prevCategories);
 
-      setSelectedItems(prevVendors || ['10 Seconds']);
+    setSelectedItems(prevCategories || []);
   }, []);
 
   const handleStateChange = (changes, downshiftState) => {
     if (changes.hasOwnProperty("selectedItem")) {
       console.log("changes selected item", changes.selectedItem);
+      if (selectedItems.includes(changes.selectedItem)) return;
       setSelectedItems([...selectedItems, changes.selectedItem]);
     } else if (changes.hasOwnProperty("inputValue")) {
       setItems(getItems(changes.inputValue));
@@ -39,39 +40,41 @@ export default function VendorsInput() {
   };
 
   const onItemAdd = (selectedItem) => {
+    console.log("selected items", selectedItems);
+    if (selectedItems.includes(selectedItem)) return;
     setSelectedItems([...selectedItems, selectedItem]);
   };
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
     if (!selectedItems.length) {
-      localStorage.removeItem("selectedVendors");
-      return
+      localStorage.removeItem("selectedCategories");
+      return;
     }
-    const vendors = selectedItems.join(",");
-    localStorage.setItem("selectedVendors", JSON.stringify(vendors));
-    const table = Tabulator.findTable("#table")[0];
-    const url = `/products?vendors=${vendors}`;
-    table.setData(url)
+    const categories = selectedItems.join(",");
+    localStorage.setItem("selectedCategories", JSON.stringify(categories));
+    // const table = Tabulator.findTable("#table")[0];
+    // const url = `/products?vendors=${vendors}`;
+    // table.setData(url)
   }, [selectedItems]);
 
   const onRemoveItem = (item) => {
     const copy = [...selectedItems];
     copy.splice(item.index, 1);
-    console.log('copy', copy)
+    console.log("copy", copy);
     setSelectedItems(copy);
-    const table = Tabulator.findTable("#table")[0];
-    const url = `/products?vendors=${copy.join(",")}`;
-    table.setData(url).then(() => {
-      let numRows = table.getRows().length;
-      const max = table.getPageSize();
-      console.log("max", max);
-      console.log({ numRows });
-      numRows = numRows >= max ? max : numRows;
-      const height = numRows * 40 + 100;
-      console.log("height", height);
-      table.setHeight(height);
-    });
+    // const table = Tabulator.findTable("#table")[0];
+    // const url = `/products?vendors=${copy.join(",")}`;
+    // table.setData(url).then(() => {
+    //   let numRows = table.getRows().length;
+    //   const max = table.getPageSize();
+    //   console.log("max", max);
+    //   console.log({ numRows });
+    //   numRows = numRows >= max ? max : numRows;
+    //   const height = numRows * 40 + 100;
+    //   console.log("height", height);
+    //   table.setHeight(height);
+    // });
   };
 
   const onItemChanged = (item) => {

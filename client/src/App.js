@@ -8,6 +8,7 @@ import {
   EmpProductFilter,
   ProductSidenav,
 } from "./components/index.js";
+import { FilterSidenav as Filters } from "./components/index.js";
 
 import "./App.css";
 import "bootstrap";
@@ -83,8 +84,13 @@ function ProductTable() {
     },
   ]);
   const [product, setProduct] = useState({});
-  const [show, setShow] = useState(false);
+  const [showProduct, setShowProduct] = useState(false);
+  const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (showProduct) setShowFilters(false);
+  }, [showProduct]);
 
   useEffect(() => {
     const table = new Tabulator("#product-table", {
@@ -168,7 +174,7 @@ function ProductTable() {
     table.on("rowClick", function (e, row) {
       console.log("row click");
       setProduct(row.getData());
-      setShow(true);
+      setShowProduct(true);
       setLoading(true);
     });
   }, [products]);
@@ -176,18 +182,15 @@ function ProductTable() {
   return (
     <>
       <ProductSidenav
-        show={show}
-        setShow={setShow}
+        show={showProduct}
+        setShow={setShowProduct}
         product={product}
         loading={loading}
         setLoading={setLoading}
       />
+      <Filters show={showFilters} setShow={setShowFilters} />
       <ToastContainer />
-      <Container>
-        <Row>
-          <div id="product-table" className="compact" />
-        </Row>
-      </Container>
+      <Row id="product-table" className="compact" />
     </>
   );
 }

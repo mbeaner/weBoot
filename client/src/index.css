@@ -1,3 +1,8 @@
+:root{
+  --primary: rgb(26, 127, 132);
+  --secondary: rgb(34, 151, 157);
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,3 +19,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn:active{
+  background-color:var(--secondary)
+}
+
+.btn:hover{
+  background-color:var(--secondary);
+}
+
+.btn:focus{
+  background-color:var(--secondary);
+  box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5);
+}
+
+/* .btn:not(:active){
+  background-color:var(--primary);
+} */

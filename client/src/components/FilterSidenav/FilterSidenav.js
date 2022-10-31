@@ -3,7 +3,7 @@ import {
   // EmpProductFilter,
   CustProductFilter,
 } from "../index.js";
-import { Offcanvas, Row, Col } from "react-bootstrap";
+import { Offcanvas, Row } from "react-bootstrap";
 import {
   BsFilterCircleFill,
   BsFillArrowLeftCircleFill,
@@ -17,14 +17,22 @@ import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import "./style.css";
 
-export default function FilterSidenav({}) {
-  const [show, setShow] = useState(true);
+export default function FilterSidenav({show, setShow}) {
   const [hover, setHover] = useState(false);
+  const [width, setWidth] = useState(400);
 
   useEffect(() => {
     console.log("show changed", show);
     setHover(false);
-  }, [show]);
+    if (!show) {
+      $("#product-table").css({ "margin-left": "200px" , width: "calc(90% - 200px)" });
+    } else {
+      const newMargin = width
+      $("#product-table").css({ "margin-left": newMargin, width: `calc(100% - ${newMargin + 200}px)` });
+    }
+  }, [show, width]);
+
+  useEffect(() => {}, [width]);
 
   useEffect(() => {
     console.log("filter-sidenav mounted");
@@ -80,6 +88,7 @@ export default function FilterSidenav({}) {
           setShow(false);
           setHover(false);
         }}
+        style={{ width: width }}
       >
         <Offcanvas.Header className="justify-content-between">
           {/* <Offcanvas.Title>
@@ -90,15 +99,16 @@ export default function FilterSidenav({}) {
             <TbArrowBigLeftLines
               className="resize"
               onClick={() => {
-                const currentWidth = $("#filter-sidenav").width();
-                $("#filter-sidenav").width(currentWidth - 300);
+                let newWidth = $("#filter-sidenav").width() - 300;
+                newWidth = newWidth < 400 ? 400 : newWidth;
+                setWidth(newWidth);
               }}
             />
             <TbArrowBigRightLines
               className="resize"
               onClick={() => {
-                const currentWidth = $("#filter-sidenav").width();
-                $("#filter-sidenav").width(currentWidth + 300);
+                const newWidth = $("#filter-sidenav").width() + 300;
+                setWidth(newWidth);
               }}
             />
           </div>

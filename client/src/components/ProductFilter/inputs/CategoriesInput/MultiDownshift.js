@@ -157,7 +157,7 @@ function MultiDownshift({
           ref: inputRef,
           onChange: onInputChange,
           onKeyDown: onInputKeyDown,
-          placeholder: "Select Vendor(s)",
+          placeholder: "Select Categories",
         });
         console.log("inputProps", inputProps);
         console.log("downshift selectedItem", selectedItem, selectedItems);
@@ -167,60 +167,58 @@ function MultiDownshift({
 
         return (
           <div>
-            <Container fluid className="justify-content-start d-flex flex-nowrap m-3">
-              <Row>
-                <Col id='vendor-col'>
-                  <InputGroup id="vendor-select" className="shadow">
-                    <InputGroup.Text id='vendor-label' className="outline">
-                      Vendors:
-                    </InputGroup.Text>
-                    <Form.Control {...inputProps} />
-                    <Button className="btn-success" {...getToggleButtonProps()}>
-                      <IoMdList
-                        color="white"
-                        size="1em"
-                        className="vendor-expand"
-                      ></IoMdList>
-                    </Button>
-                  </InputGroup>
-                  {!isOpen ? null : (
-                    <Menu>
-                      {items?.map((item, index) => (
-                        <Item
-                          key={`item-${index}`}
-                          {...getItemProps({
-                            item,
-                            index,
-                            isActive: highlightedIndex === index,
-                            isSelected: selectedItem === item,
-                          })}
-                        >
-                          {item}
-                        </Item>
-                      ))}
-                    </Menu>
-                  )}
-                </Col>
-                <Col id='badge-col'>
-                  <Container
-                    fluid
-                    id={"input-wrapper"}
-                    innerref={inputWrapper}
-                    onClick={onWrapperClick}
-                    tabIndex="-1"
-                  >
-                    {tagItems?.map((tag) => (
-                      <BadgeValue
-                        key={`Badge-${tag.index}`}
-                        onBlur={onBadgeBlur}
-                        onRemove={onRemoveBadge}
-                        tag={tag}
-                      />
+            <Row className="flex-column">
+              <Col id="category-col">
+                <InputGroup id="category-select" className="shadow">
+                  <InputGroup.Text id="category-label" className="outline">
+                    Categories:
+                  </InputGroup.Text>
+                  <Form.Control {...inputProps} />
+                  <Button className="btn-success" {...getToggleButtonProps()}>
+                    <IoMdList
+                      color="white"
+                      size="1em"
+                      className="category-expand"
+                    ></IoMdList>
+                  </Button>
+                </InputGroup>
+                {!isOpen ? null : (
+                  <Menu>
+                    {items?.map((item, index) => (
+                      <Item
+                        key={`item-${index}`}
+                        {...getItemProps({
+                          item,
+                          index,
+                          isActive: highlightedIndex === index,
+                          isSelected: selectedItem === item,
+                        })}
+                      >
+                        {item}
+                      </Item>
                     ))}
-                  </Container>
-                </Col>
-              </Row>
-            </Container>
+                  </Menu>
+                )}
+              </Col>
+              <Col id="badge-col">
+                <Container
+                  fluid
+                  id={"input-wrapper"}
+                  innerref={inputWrapper}
+                  onClick={onWrapperClick}
+                  tabIndex="-1"
+                >
+                  {tagItems?.map((tag) => (
+                    <BadgeValue
+                      key={`Badge-${tag.index}`}
+                      onBlur={onBadgeBlur}
+                      onRemove={onRemoveBadge}
+                      tag={tag}
+                    />
+                  ))}
+                </Container>
+              </Col>
+            </Row>
           </div>
         );
       }}

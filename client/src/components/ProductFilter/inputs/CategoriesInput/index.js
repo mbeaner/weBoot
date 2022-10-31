@@ -1,6 +1,6 @@
 import BadgeValue from "./BadgeValue.js";
-import vendors from "./vendors.json";
+import categories from "./categories.json";
 import { Menu, Item } from "./components.js";
 import MultiDownshift from "./MultiDownshift.js";
 
-export { BadgeValue, MultiDownshift, vendors, Menu, Item };
+export { BadgeValue, MultiDownshift, categories, Menu, Item };
