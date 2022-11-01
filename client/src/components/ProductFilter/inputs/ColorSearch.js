@@ -33,9 +33,9 @@ export default function ColorSearch({ handleChanges }) {
 
   useEffect(() => {
     console.log("active colors", active);
-    if (!active.length) return
+    // if (!active.length) return
     handleChanges({ colors: active });
-  }, [active, handleChanges]);
+  }, [active]);
 
   function colorSwatch(color) {
     return (

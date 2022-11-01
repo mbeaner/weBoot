@@ -58,7 +58,7 @@ export default function TagsInput({ handleChanges }) {
     // const table = Tabulator.findTable("#table")[0];
     // const url = `/products?vendors=${vendors}`;
     // table.setData(url)
-  }, [handleChanges, selectedItems]);
+  }, [ selectedItems]);
 
   const onRemoveItem = (item) => {
     const copy = [...selectedItems];
