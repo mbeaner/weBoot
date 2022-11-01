@@ -1,15 +1,16 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const Order = require('./Order');
 
 const userSchema = new Schema({
-  name: {
+  firstName: {
     type: String,
     required: true,
+    trim: true,
   },
-  username: {
+  lastName: {
     type: String,
     required: true,
-    unique: true,
     trim: true,
   },
   email: {
@@ -23,39 +24,25 @@ const userSchema = new Schema({
     required: true,
     minlength: 8,
   },
-  address: {
-    address1: String,
-    address2: String,
-    city: String,
-    zip_code: {
-      type: Number,
-      maxlength: 5,
-    },
-    country: String,
+  isAdmin: {
+    type: Boolean,
+    default: false,
   },
-  payment_info: [
-    {
-      card_number: {
-        type: Number,
-        maxlength: 16,
-      },
-      exp_date: {
-        month: {
-          type: Number,
-          maxlength: 2,
-        },
-        year: {
-          type: Number,
-          maxlength: 2,
-        },
-      },
-      cvv: {
-        type: Number,
-        maxlength: 3,
-      },
-    },
-  ],
+  orders: [Order.schema],
 });
+
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+
+  next();
+});
+
+userSchema.methods.isCorrectPassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
+};
 
 const User = model('User', userSchema);
 
