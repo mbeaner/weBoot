@@ -17,7 +17,7 @@ export default function SizeSearch({ handleChanges }) {
   useEffect(() => {
     if (!sizes.length) return;
     handleChanges({ sizes });
-  }, [handleChanges, sizes]);
+  }, [sizes]);
 
   return (
     <Form id="size-search" onChange={handleChange}>

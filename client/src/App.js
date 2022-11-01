@@ -78,7 +78,7 @@ function ProductTable() {
         {
           id: 1,
           size: "OSFM",
-          color: "Brown/Red",
+          color: "Red",
           Inventory: 100,
           image: "/assets/images/mim-hat.png",
         },

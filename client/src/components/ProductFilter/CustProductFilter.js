@@ -13,7 +13,7 @@ import { BiCategoryAlt } from "react-icons/bi/index.esm.js";
 import { BsRulers } from "react-icons/bs/index.esm.js";
 import { Tabulator } from "tabulator-tables";
 import { find } from "lodash";
-import textFilter from "./utils/textFilter.js";
+import { colorFilter, textFilter } from "./utils/index.js";
 
 export default function CustProductFilter() {
   const [filter, setFilter] = useState({
@@ -111,7 +111,8 @@ export default function CustProductFilter() {
   };
 
   useEffect(() => {
-    console.log("filter changed", filter, update || "no update");
+    console.log("filter changed", update);
+    if (!update) return;
     const { field, value } = update || {};
     console.log(field, value);
     const table = Tabulator.findTable("#product-table")[0];
@@ -127,6 +128,8 @@ export default function CustProductFilter() {
       (row) => {
         if (field === "text") {
           return textFilter({ row, value });
+        } else if (field === "colors") {
+          return colorFilter( row, value );
         } else {
           return true;
         }
@@ -134,7 +137,8 @@ export default function CustProductFilter() {
       "function",
       field
     );
-  }, [filter, update]);
+    setUpdate(null);
+  }, [update]);
 
   return (
     <>
