@@ -18,7 +18,6 @@ function MultiDownshift({
   const [input, setInput] = useState("");
   const [inputWrapper, setInputWrapper] = useState("");
 
-  console.log("multidownshift selectedItem", typeof selectedItems);
   const handleStateChange = (changes, downshiftStateAndHelpers) => {
     console.log("changes", changes);
     if (!downshiftStateAndHelpers.isOpen) {
@@ -157,7 +156,7 @@ function MultiDownshift({
           ref: inputRef,
           onChange: onInputChange,
           onKeyDown: onInputKeyDown,
-          placeholder: "Select Categories",
+          placeholder: "Select Tag(s)",
         });
         console.log("inputProps", inputProps);
         console.log("downshift selectedItem", selectedItem, selectedItems);
@@ -168,17 +167,18 @@ function MultiDownshift({
         return (
           <div>
             <Row className="flex-column">
-              <Col id="category-col">
-                <InputGroup id="category-select" className="shadow">
-                  <InputGroup.Text id="category-label" className="outline">
-                    Categories:
+              <Col id="tags-col">
+                <InputGroup id="tags-select" className="shadow">
+                  <InputGroup.Text id="tags-label" className="outline">
+                    Tags:
                   </InputGroup.Text>
                   <Form.Control {...inputProps} />
                   <Button className="btn-success" {...getToggleButtonProps()}>
                     <IoMdList
+                      id="tags-expand"
                       color="white"
                       size="1em"
-                      className="category-expand"
+                      className="tags-expand"
                     ></IoMdList>
                   </Button>
                 </InputGroup>

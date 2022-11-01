@@ -10,23 +10,104 @@ import {
   SizeSearch,
 } from "./inputs/index.js";
 import { BiCategoryAlt } from "react-icons/bi/index.esm.js";
-import {BsRulers} from "react-icons/bs/index.esm.js";
+import { BsRulers } from "react-icons/bs/index.esm.js";
 
 export default function CustProductFilter() {
-  // const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState({
+    text: "",
+    price: { radio: null, min: 0, max: 1000 },
+    colors: [],
+    categories: [],
+    rating: 1,
+    tags: [],
+    sizes: [],
+  });
   // const [update, setUpdate] = useState(null);
+
+  const handleChanges = (e) => {
+    console.log(">>customer filter changed", e);
+    const event = e.type;
+    const elType = e.target?.type;
+    const id = e.target ? e.target?.id : null;
+    if (event === "click" && elType !== "radio" && !id.includes("expand"))
+      return;
+    if (id === "text-search") {
+      //text search
+      setFilter({ ...filter, text: e.target.value });
+    } else if (e.colors) {
+      //color search
+      setFilter({ ...filter, colors: e.colors });
+    } else if (e.categories) {
+      //categories search
+      setFilter({ ...filter, categories: e.categories });
+    } else if (e.tags) {
+      //tags search
+      setFilter({ ...filter, tags: e.tags });
+    } else if (e.sizes) {
+      //sizes search
+      setFilter({ ...filter, sizes: e.sizes });
+    } else if (id?.includes("price")) {
+      //price search
+      let { value, placeholder, type } = e.target;
+      //radio click
+      if (type === "radio") {
+        setFilter({ ...filter, price: { ...filter.price, radio: value } });
+      } else if (type === "checkbox") {
+        //checkbox click
+        const checked = e.target.checked;
+        const field = e.target.id.split("-")[1];
+        if (checked) {
+          const newValue = Number(
+            e.target.parentNode.childNodes[1].childNodes[0].value
+          );
+          if (!newValue) return;
+          setFilter({
+            ...filter,
+            price: { ...filter.price, [field]: newValue },
+          });
+        } else {
+          //uncheck
+          const newValue = field === "min" ? 0 : 1000;
+          setFilter({
+            ...filter,
+            price: { ...filter.price, [field]: newValue },
+          });
+        }
+      } else if (placeholder === "Min") {
+        //min input
+        const checked = document.getElementById("price-min").checked;
+        if (!value || !checked) return;
+        value = Number(value);
+        setFilter({ ...filter, price: { ...filter.price, min: value } });
+      } else if (placeholder === "Max") {
+        //max input
+        const checked = document.getElementById("price-max").checked;
+        if (!value || !checked) return;
+        value = Number(value);
+        setFilter({ ...filter, price: { ...filter.price, max: value } });
+      }
+    } else if (e.rating) {
+      //rating search
+      console.log("rating search changed", e);
+      setFilter({ ...filter, rating: e.rating });
+    }
+  };
+
+  useEffect(() => {
+    console.log("filter changed", filter);
+  }, [filter]);
 
   return (
     <>
       <h1>Filters</h1>
-      <TextSearch />
+      <TextSearch handleChanges={handleChanges} />
       <Accordion id="filter-accordian" defaultActiveKey="0">
         <Accordion.Item eventKey="0">
           <Accordion.Header>
             <h5>💸 Price</h5>
           </Accordion.Header>
           <Accordion.Body>
-            <PriceSearch />
+            <PriceSearch handleChanges={handleChanges} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
@@ -34,7 +115,7 @@ export default function CustProductFilter() {
             <h5>🌈 Color</h5>
           </Accordion.Header>
           <Accordion.Body>
-            <ColorSearch />
+            <ColorSearch handleChanges={handleChanges} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="2">
@@ -44,7 +125,7 @@ export default function CustProductFilter() {
             </h5>
           </Accordion.Header>
           <Accordion.Body>
-            <CategoriesInput />
+            <CategoriesInput handleChanges={handleChanges} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="3">
@@ -52,7 +133,7 @@ export default function CustProductFilter() {
             <h5>⭐ Rating</h5>
           </Accordion.Header>
           <Accordion.Body>
-            <RatingSearch />
+            <RatingSearch handleChanges={handleChanges} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="4">
@@ -60,15 +141,17 @@ export default function CustProductFilter() {
             <h5>🏷️ Tags</h5>
           </Accordion.Header>
           <Accordion.Body>
-            <TagsInput />
+            <TagsInput handleChanges={handleChanges} />
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="5">
           <Accordion.Header>
-            <h5><BsRulers id='size-ruler'/> Sizes</h5>
+            <h5>
+              <BsRulers id="size-ruler" /> Sizes
+            </h5>
           </Accordion.Header>
           <Accordion.Body>
-            <SizeSearch />
+            <SizeSearch handleChanges={handleChanges} />
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

@@ -18,7 +18,6 @@ function MultiDownshift({
   const [input, setInput] = useState("");
   const [inputWrapper, setInputWrapper] = useState("");
 
-  console.log("multidownshift selectedItem", typeof selectedItems);
   const handleStateChange = (changes, downshiftStateAndHelpers) => {
     console.log("changes", changes);
     if (!downshiftStateAndHelpers.isOpen) {
@@ -177,6 +176,7 @@ function MultiDownshift({
                   <Button className="btn-success" {...getToggleButtonProps()}>
                     <IoMdList
                       color="white"
+                      id="category-expand"
                       size="1em"
                       className="category-expand"
                     ></IoMdList>

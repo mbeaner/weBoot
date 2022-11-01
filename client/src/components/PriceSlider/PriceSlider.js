@@ -11,6 +11,7 @@ import "rc-slider/assets/index.css";
 // });
 
 export default function PriceSlider() {
+  // eslint-disable-next-line no-unused-vars
   const [price, setPrice] = useState(100);
   // const [icon, setIcon] = useState(
   //   <i
