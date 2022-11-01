@@ -1,3 +1,4 @@
+
 import _ from "lodash";
 import React, { useState, useEffect } from "react";
 import { Form, Row, Container } from "react-bootstrap";
@@ -57,7 +58,7 @@ function AdvancedFilter() {
   };
 
   useEffect(() => {
-    console.log("filter useEffect", filter, update);
+    console.log("filter useEffect", filter);
     // if (!filter) return;
   }, [filter]);
 
@@ -167,7 +168,7 @@ function AdvancedFilter() {
     console.log(" advanced table Filters", tableFilters);
     localStorage.setItem("tableFilters", JSON.stringify(tableFilters));
     setUpdate(null);
-  }, [update]);
+  }, [filter, table, update]);
 
   return (
     <Container id="advanced-filters" fluid className="">

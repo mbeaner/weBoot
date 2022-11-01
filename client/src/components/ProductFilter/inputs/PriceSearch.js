@@ -16,7 +16,7 @@ export default function PriceSearch({ handleChanges }) {
             <Form.Check
               inline
               value="sale"
-              id="sale"
+              id="price-sale"
               label="On Sale"
               name="group2"
               type={"radio"}
@@ -26,7 +26,7 @@ export default function PriceSearch({ handleChanges }) {
             <Form.Check
               inline
               value="regular"
-              id="regular"
+              id="price-regular"
               label="Regular"
               name="group2"
               type={"radio"}

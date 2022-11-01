@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Form } from "react-bootstrap";
 
-export default function SizeSearch() {
+export default function SizeSearch({ handleChanges }) {
+  const [sizes, setSizes] = useState([]);
+
+  const handleChange = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      setSizes([...sizes, value]);
+    } else {
+      setSizes(sizes.filter((size) => size !== value));
+    }
+  };
+
+  useEffect(() => {
+    if (!sizes.length) return;
+    handleChanges({ sizes });
+  }, [handleChanges, sizes]);
+
   return (
-    <Form>
+    <Form id="size-search" onChange={handleChange}>
       {["XS", "S", "M", "L", "XL", "XXL"].map((value) => (
         <Form.Check
           value={value}
           id={value}
           label={value}
+          key={value}
           name="group1"
-          className='size-checkbox'
+          className="size-checkbox"
           type={"checkbox"}
         />
       ))}

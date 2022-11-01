@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { startCase, isEqual, forEach } from "lodash";
 import React, { useState, useEffect } from "react";
@@ -12,8 +11,6 @@ export default function ProductForm({ product }) {
   const [fields, setFields] = useState([]);
   const [values, setValues] = useState([]);
   const [originalValues, setOriginalValues] = useState([]);
-
-  const customerFields = ["price", "category", "description", "reviews", "tags"];
 
   const handleChanges = (e) => {
     e.stopPropagation();
@@ -68,6 +65,13 @@ export default function ProductForm({ product }) {
   }, [values, originalValues]);
 
   useEffect(() => {
+    const customerFields = [
+      "price",
+      "category",
+      "description",
+      "reviews",
+      "tags",
+    ];
     console.log("product changed", product);
     const newFields = Object.keys(product).filter((key) =>
       customerFields.includes(key)
@@ -76,7 +80,7 @@ export default function ProductForm({ product }) {
     setFields(newFields);
     const newValues = {};
     newFields.map((field) => {
-      return newValues[field] = product[field];
+      return (newValues[field] = product[field]);
     });
     newValues.id = product.id;
     console.log("newValues", newValues);

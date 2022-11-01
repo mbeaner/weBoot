@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import "tabulator-tables/dist/css/tabulator_bootstrap5.min.css";
-import { Container, Row } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import {
   ProductCard,
+  // eslint-disable-next-line no-unused-vars
   EmpProductFilter,
   ProductSidenav,
 } from "./components/index.js";
@@ -15,6 +16,7 @@ import "bootstrap";
 import { ToastContainer } from "react-toastify";
 
 function ProductTable() {
+  // eslint-disable-next-line no-unused-vars
   const [products, setProducts] = useState([
     {
       id: 1,

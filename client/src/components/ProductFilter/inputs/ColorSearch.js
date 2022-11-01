@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { remove } from "lodash";
 
-export default function ColorSearch({ handleChange }) {
+export default function ColorSearch({ handleChanges }) {
+  // eslint-disable-next-line no-unused-vars
   const [colors, setColors] = useState([
     "Red",
     "Black",
@@ -30,16 +31,17 @@ export default function ColorSearch({ handleChange }) {
     setActive(newActive);
   };
 
-
-
   useEffect(() => {
-    console.log('active colors', active);
-  }, [active]);
+    console.log("active colors", active);
+    if (!active.length) return
+    handleChanges({ colors: active });
+  }, [active, handleChanges]);
+
   function colorSwatch(color) {
     return (
       <Button
         id={`color-swatch-${color}`}
-        style={{ backgroundColor: color}}
+        style={{ backgroundColor: color }}
         key={color}
         value={color}
         active={active.includes(color)}

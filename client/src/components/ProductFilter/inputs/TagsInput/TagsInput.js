@@ -6,7 +6,7 @@ import { MultiDownshift, tags } from "./index.js";
 // import { TbLeaf } from "react-icons/tb/index.esm.js";
 import "./style.css";
 
-export default function TagsInput() {
+export default function TagsInput({ handleChanges }) {
   const [allItems, setAllItems] = useState();
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -17,9 +17,9 @@ export default function TagsInput() {
     console.log("allTags", allTags);
     setAllItems(allTags);
     setItems(allTags);
-    const prevTags = JSON.parse(
-      localStorage.getItem("selectedTags")
-    )?.split(",");
+    const prevTags = JSON.parse(localStorage.getItem("selectedTags"))?.split(
+      ","
+    );
     console.log("prevTags", prevTags);
 
     setSelectedItems(prevTags || []);
@@ -47,16 +47,18 @@ export default function TagsInput() {
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
-    if (!selectedItems.length) {
-      localStorage.removeItem("selectedTags");
-      return;
-    }
-    const tags = selectedItems.join(",");
-    localStorage.setItem("selectedTags", JSON.stringify(tags));
+    if (!selectedItems.length) return;
+    handleChanges({ tags: selectedItems });
+    // if (!selectedItems.length) {
+    //   localStorage.removeItem("selectedTags");
+    //   return;
+    // }
+    // const tags = selectedItems.join(",");
+    // localStorage.setItem("selectedTags", JSON.stringify(tags));
     // const table = Tabulator.findTable("#table")[0];
     // const url = `/products?vendors=${vendors}`;
     // table.setData(url)
-  }, [selectedItems]);
+  }, [handleChanges, selectedItems]);
 
   const onRemoveItem = (item) => {
     const copy = [...selectedItems];
@@ -89,6 +91,7 @@ export default function TagsInput() {
 
   return (
     <MultiDownshift
+      id="tags-search"
       selectedItems={selectedItems}
       onChangedState={handleStateChange}
       onChange={onItemAdd}

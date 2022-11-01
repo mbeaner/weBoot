@@ -6,7 +6,7 @@ import { MultiDownshift, categories } from "./index.js";
 // import { TbLeaf } from "react-icons/tb/index.esm.js";
 import "./style.css";
 
-export default function CategoriesInput() {
+export default function CategoriesInput({ handleChanges }) {
   const [allItems, setAllItems] = useState();
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -47,16 +47,18 @@ export default function CategoriesInput() {
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
-    if (!selectedItems.length) {
-      localStorage.removeItem("selectedCategories");
-      return;
-    }
-    const categories = selectedItems.join(",");
-    localStorage.setItem("selectedCategories", JSON.stringify(categories));
+    if (!selectedItems.length) return
+    handleChanges({ categories: selectedItems });
+    // if (!selectedItems.length) {
+    //   localStorage.removeItem("selectedCategories");
+    //   return;
+    // }
+    // const categories = selectedItems.join(",");
+    // localStorage.setItem("selectedCategories", JSON.stringify(categories));
     // const table = Tabulator.findTable("#table")[0];
     // const url = `/products?vendors=${vendors}`;
     // table.setData(url)
-  }, [selectedItems]);
+  }, [handleChanges, selectedItems]);
 
   const onRemoveItem = (item) => {
     const copy = [...selectedItems];
@@ -89,6 +91,7 @@ export default function CategoriesInput() {
 
   return (
     <MultiDownshift
+      id="category-search"
       selectedItems={selectedItems}
       onChangedState={handleStateChange}
       onChange={onItemAdd}

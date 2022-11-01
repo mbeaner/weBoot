@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Tabulator } from "tabulator-tables";
 import FilterRow from "./EmpRow.js";
@@ -61,7 +60,6 @@ function EmpProductFilter() {
     });
     console.log("filter updated", newFilter);
     setFilter(newFilter);
-    
   };
 
   const deleteRow = (thisRow) => {
@@ -81,7 +79,7 @@ function EmpProductFilter() {
         newFilter = [{ field: "title", type: "like", value: "", row: thisRow }];
         row.css({ backgroundColor: "rgb(247, 247, 247)", opacity: 1 });
         setFilter(newFilter);
-        
+
         setNumRows(1);
       }, 100);
       return;
@@ -100,7 +98,7 @@ function EmpProductFilter() {
   };
 
   useEffect(() => {
-    console.log("EmpProductFilter mounted", filter);
+    console.log("EmpProductFilter mounted");
   }, []);
 
   useEffect(() => {
@@ -114,7 +112,7 @@ function EmpProductFilter() {
   }, [rows]);
 
   useEffect(() => {
-    console.log("filtering table", filter, numRows,  rows, update);
+    // console.log("filtering table", filter, numRows, rows, update);
     // setProdFilter(filter);
     localStorage.setItem("empProductFilter", JSON.stringify(filter));
     if (update?.change !== "value") {
@@ -149,6 +147,7 @@ function EmpProductFilter() {
     console.log("newFilter", newFilter);
     table.setFilter(newFilter);
     table.refreshFilter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const clearFilter = () => {
@@ -160,13 +159,12 @@ function EmpProductFilter() {
 
   const addRow = () => {
     console.log("adding row", "curent filter", filter);
-    const row = Math.round(Math.random()*10000)
+    const row = Math.round(Math.random() * 10000);
     setNumRows(numRows + 1);
     let newFilter = [...filter];
     newFilter.push({ field: "title", type: "like", value: "", row });
     console.log("added Row", row, newFilter);
     setFilter(newFilter);
-    
   };
 
   return (

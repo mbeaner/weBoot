@@ -1,4 +1,4 @@
-.category-badge {
+.tags-badge {
   background-image: linear-gradient(
     to top,
     var(--primary) 0%,
@@ -14,11 +14,11 @@ button[aria-label="open menu"] {
   background-color: var(--primary);
 }
 
-#category-select {
+#tags-select {
   width: 300px;
 }
 
-.category-delete {
+.tags-delete {
   color: red;
   font-size: 0.5em;
   width: 5% !important;
@@ -32,7 +32,7 @@ button[aria-label="open menu"] {
   text-shadow: 0 0 1px black;
 }
 
-.category-expand {
+.tags-expand {
   font-size: 1.25em;
   font-weight: 800;
   margin: 0;
@@ -43,7 +43,7 @@ button[aria-label="open menu"] {
 }
 
 
-#category-col {
+#tags-col {
   max-width: 300px;
 }
 
@@ -51,17 +51,6 @@ button[aria-label="open menu"] {
   width: 50%;
 }
 
-#category-label {
-  background-image: linear-gradient(
-    to top,
-    var(--primary) 0%,
-    var(--primary) 100%
-  );
-  /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5); */
-  text-shadow: 0 0.15rem 0.25rem rgba(0, 0, 0, 0.25);
-  user-select: none;
-  color: white;
-  font-weight: 800;
-  margin-left: 0;
+#tags-label {
   display:none
 }

@@ -1,5 +1,3 @@
-import _ from "lodash";
-
 const inventoryFilter = ({filterGroup, totalInventory, constraint}) => {
   // console.log("filtering inventory", constraint || "no constraint");
   if (constraint === "instock") {
