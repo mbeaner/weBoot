@@ -150,17 +150,11 @@ input[id^="filter-value"] {
 }
 .star-button:checked+.btn:focus{
   background-color: rgba(33, 186, 9, 0);
-  color:black;
-  border: none;
-  box-shadow: none;
 }
 
 
 .star-button:hover{
   background-color: rgba(0, 0, 0, 0);
-  color:black;
-  border: none;
-  box-shadow: none;
 }
 
 .star{

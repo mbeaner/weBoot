@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 // import ReactDOM from "react-dom/client";
 import { matchSorter } from "match-sorter";
@@ -48,6 +47,7 @@ export default function CategoriesInput({ handleChanges }) {
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
+    if (!selectedItems.length) return
     handleChanges({ categories: selectedItems });
     // if (!selectedItems.length) {
     //   localStorage.removeItem("selectedCategories");
@@ -58,7 +58,7 @@ export default function CategoriesInput({ handleChanges }) {
     // const table = Tabulator.findTable("#table")[0];
     // const url = `/products?vendors=${vendors}`;
     // table.setData(url)
-  }, [selectedItems]);
+  }, [handleChanges, selectedItems]);
 
   const onRemoveItem = (item) => {
     const copy = [...selectedItems];

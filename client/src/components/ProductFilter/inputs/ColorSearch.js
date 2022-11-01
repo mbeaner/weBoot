@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Button } from "react-bootstrap";
 import { remove } from "lodash";
@@ -34,8 +33,9 @@ export default function ColorSearch({ handleChanges }) {
 
   useEffect(() => {
     console.log("active colors", active);
-    handleChanges({colors: active});
-  }, [active]);
+    if (!active.length) return
+    handleChanges({ colors: active });
+  }, [active, handleChanges]);
 
   function colorSwatch(color) {
     return (

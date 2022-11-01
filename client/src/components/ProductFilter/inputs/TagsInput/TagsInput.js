@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 // import ReactDOM from "react-dom/client";
 import { matchSorter } from "match-sorter";
@@ -18,9 +17,9 @@ export default function TagsInput({ handleChanges }) {
     console.log("allTags", allTags);
     setAllItems(allTags);
     setItems(allTags);
-    const prevTags = JSON.parse(
-      localStorage.getItem("selectedTags")
-    )?.split(",");
+    const prevTags = JSON.parse(localStorage.getItem("selectedTags"))?.split(
+      ","
+    );
     console.log("prevTags", prevTags);
 
     setSelectedItems(prevTags || []);
@@ -48,6 +47,7 @@ export default function TagsInput({ handleChanges }) {
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
+    if (!selectedItems.length) return;
     handleChanges({ tags: selectedItems });
     // if (!selectedItems.length) {
     //   localStorage.removeItem("selectedTags");
@@ -58,7 +58,7 @@ export default function TagsInput({ handleChanges }) {
     // const table = Tabulator.findTable("#table")[0];
     // const url = `/products?vendors=${vendors}`;
     // table.setData(url)
-  }, [selectedItems]);
+  }, [handleChanges, selectedItems]);
 
   const onRemoveItem = (item) => {
     const copy = [...selectedItems];
@@ -91,7 +91,7 @@ export default function TagsInput({ handleChanges }) {
 
   return (
     <MultiDownshift
-      id='tags-search'
+      id="tags-search"
       selectedItems={selectedItems}
       onChangedState={handleStateChange}
       onChange={onItemAdd}

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Offcanvas, Button, Row, Col } from "react-bootstrap";
 import { uniq, pick } from "lodash";
@@ -51,7 +50,7 @@ export default function ProductSidenav({
     setLoading(false);
     // const data = variants;
     // setOriginalData(data);
-  }, [variants]);
+  }, [setLoading, variants]);
 
   useEffect(() => {
     console.log("loading", loading);
@@ -76,13 +75,7 @@ export default function ProductSidenav({
       $("#cancel-var-changes").prop("disabled", true).addClass("opacity-0");
     } else if (action === "submit") {
       const rows = table.getSelectedRows();
-      const dataFields = [
-        "id",
-        "name",
-        "size",
-        "color",
-        "inventory"
-      ];
+      const dataFields = ["id", "name", "size", "color", "inventory"];
       // let updated = 0
       rows.forEach(async (row) => {
         const data = row.getData();
@@ -171,9 +164,7 @@ export default function ProductSidenav({
             </Button>
           </div>
         </Col>
-        <Offcanvas.Title className="">
-          {`${title}`}
-        </Offcanvas.Title>{" "}
+        <Offcanvas.Title className="">{`${title}`}</Offcanvas.Title>{" "}
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Row id="sidenav-body" className="">

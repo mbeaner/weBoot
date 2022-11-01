@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 
 import { Form } from "react-bootstrap";
@@ -16,8 +15,9 @@ export default function SizeSearch({ handleChanges }) {
   };
 
   useEffect(() => {
+    if (!sizes.length) return;
     handleChanges({ sizes });
-  }, [sizes]);
+  }, [handleChanges, sizes]);
 
   return (
     <Form id="size-search" onChange={handleChange}>

@@ -11,6 +11,9 @@ import {
 } from "./inputs/index.js";
 import { BiCategoryAlt } from "react-icons/bi/index.esm.js";
 import { BsRulers } from "react-icons/bs/index.esm.js";
+import { Tabulator } from "tabulator-tables";
+import { find } from "lodash";
+import textFilter from "./utils/textFilter.js";
 
 export default function CustProductFilter() {
   const [filter, setFilter] = useState({
@@ -22,7 +25,7 @@ export default function CustProductFilter() {
     tags: [],
     sizes: [],
   });
-  // const [update, setUpdate] = useState(null);
+  const [update, setUpdate] = useState(null);
 
   const handleChanges = (e) => {
     console.log(">>customer filter changed", e);
@@ -34,24 +37,30 @@ export default function CustProductFilter() {
     if (id === "text-search") {
       //text search
       setFilter({ ...filter, text: e.target.value });
+      setUpdate({ field: "text", value: e.target.value });
     } else if (e.colors) {
       //color search
       setFilter({ ...filter, colors: e.colors });
+      setUpdate({ field: "colors", value: e.colors });
     } else if (e.categories) {
       //categories search
       setFilter({ ...filter, categories: e.categories });
+      setUpdate({ field: "categories", value: e.categories });
     } else if (e.tags) {
       //tags search
       setFilter({ ...filter, tags: e.tags });
+      setUpdate({ field: "tags", value: e.tags });
     } else if (e.sizes) {
       //sizes search
       setFilter({ ...filter, sizes: e.sizes });
+      setUpdate({ field: "sizes", value: e.sizes });
     } else if (id?.includes("price")) {
       //price search
       let { value, placeholder, type } = e.target;
       //radio click
       if (type === "radio") {
         setFilter({ ...filter, price: { ...filter.price, radio: value } });
+        setUpdate({ field: "price", value: { ...filter.price, radio: value } });
       } else if (type === "checkbox") {
         //checkbox click
         const checked = e.target.checked;
@@ -65,12 +74,20 @@ export default function CustProductFilter() {
             ...filter,
             price: { ...filter.price, [field]: newValue },
           });
+          setUpdate({
+            field: "price",
+            value: { ...filter.price, [field]: newValue },
+          });
         } else {
           //uncheck
           const newValue = field === "min" ? 0 : 1000;
           setFilter({
             ...filter,
             price: { ...filter.price, [field]: newValue },
+          });
+          setUpdate({
+            field: "price",
+            value: { ...filter.price, [field]: newValue },
           });
         }
       } else if (placeholder === "Min") {
@@ -94,8 +111,30 @@ export default function CustProductFilter() {
   };
 
   useEffect(() => {
-    console.log("filter changed", filter);
-  }, [filter]);
+    console.log("filter changed", filter, update || "no update");
+    const { field, value } = update || {};
+    console.log(field, value);
+    const table = Tabulator.findTable("#product-table")[0];
+    if (!table) return;
+    const tableFilter = find(table.getFilters(), (f) => f.value === field);
+    console.log("tableFilter", tableFilter);
+    if (tableFilter) {
+      const { field, type, value } = tableFilter;
+      table.removeFilter(field, type, value);
+      console.log("removed > new filters", table.getFilters());
+    }
+    table.addFilter(
+      (row) => {
+        if (field === "text") {
+          return textFilter({ row, value });
+        } else {
+          return true;
+        }
+      },
+      "function",
+      field
+    );
+  }, [filter, update]);
 
   return (
     <>
