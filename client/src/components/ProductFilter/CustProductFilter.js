@@ -13,7 +13,7 @@ import { BiCategoryAlt } from "react-icons/bi/index.esm.js";
 import { BsRulers } from "react-icons/bs/index.esm.js";
 import { Tabulator } from "tabulator-tables";
 import { find } from "lodash";
-import { colorFilter, textFilter } from "./utils/index.js";
+import { colorFilter, textFilter,  ratingFilter, tagsFilter } from "./utils/index.js";
 
 export default function CustProductFilter() {
   const [filter, setFilter] = useState({
@@ -96,17 +96,20 @@ export default function CustProductFilter() {
         if (!value || !checked) return;
         value = Number(value);
         setFilter({ ...filter, price: { ...filter.price, min: value } });
+        setUpdate({ field: "price", value: { ...filter.price, min: value } });
       } else if (placeholder === "Max") {
         //max input
         const checked = document.getElementById("price-max").checked;
         if (!value || !checked) return;
         value = Number(value);
         setFilter({ ...filter, price: { ...filter.price, max: value } });
+        setUpdate({ field: "price", value: { ...filter.price, max: value } });
       }
     } else if (e.rating) {
       //rating search
-      console.log("rating search changed", e);
+      // console.log("rating search changed", e);
       setFilter({ ...filter, rating: e.rating });
+      setUpdate({ field: "rating", value: e.rating });
     }
   };
 
@@ -127,9 +130,17 @@ export default function CustProductFilter() {
     table.addFilter(
       (row) => {
         if (field === "text") {
-          return textFilter({ row, value });
+          return textFilter(row, value);
         } else if (field === "colors") {
-          return colorFilter( row, value );
+          return colorFilter(row, value);
+        } else if (field === "categories") {
+          const { category } = row;
+          const categories = value;
+          return categories.includes(category);
+        } else if (field === "rating") {
+          return ratingFilter(row, value);
+        } else if (field === 'tags') { 
+          return tagsFilter(row, value);
         } else {
           return true;
         }

@@ -47,7 +47,7 @@ export default function TagsInput({ handleChanges }) {
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
-    if (!selectedItems.length) return;
+    // if (!selectedItems.length) return;
     handleChanges({ tags: selectedItems });
     // if (!selectedItems.length) {
     //   localStorage.removeItem("selectedTags");

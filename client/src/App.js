@@ -28,7 +28,7 @@ function ProductTable() {
       compare_at_price: null,
       vendor: "weBoot",
       tags: ["Funny", "Shirts", "Cotton", "Top", "Graphic"],
-      reviews: [{ rating: 5, body: "This is a great shirt!" }],
+      reviews: [{ rating: 3, body: "This is a great shirt!" }],
       upc: Math.floor(Math.random() * 1000000000),
       variants: [
         {
@@ -72,7 +72,7 @@ function ProductTable() {
       compare_at_price: 120,
       vendor: "weBoot",
       tags: ["Hats", "Headwear", "Straw", "Summer", "Beach", "Garden"],
-      reviews: [{ rating: 5, body: "This is a great hat!" }],
+      reviews: [{ rating: 4, body: "This is a great hat!" }],
       upc: Math.floor(Math.random() * 1000000000),
       variants: [
         {
