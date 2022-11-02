@@ -47,7 +47,7 @@ export default function CategoriesInput({ handleChanges }) {
 
   useEffect(() => {
     console.log("selectedItems changed", selectedItems);
-    if (!selectedItems.length) return
+    // if (!selectedItems.length) return
     handleChanges({ categories: selectedItems });
     // if (!selectedItems.length) {
     //   localStorage.removeItem("selectedCategories");

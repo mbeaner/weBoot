@@ -19,27 +19,27 @@ function MultiDownshift({
   const [inputWrapper, setInputWrapper] = useState("");
 
   const handleStateChange = (changes, downshiftStateAndHelpers) => {
-    console.log("changes", changes);
+    // console.log("changes", changes);
     if (!downshiftStateAndHelpers.isOpen) {
       // this.setState({ inputValue: "" });
       setInputValue("");
     }
 
     if (onChangedState) {
-      console.log("onChangedState");
+      // console.log("onChangedState");
       onChangedState(changes, downshiftStateAndHelpers);
     }
   };
 
   const onInputChange = (event) => {
-    console.log("onInputChange", event.target.value);
+    // console.log("onInputChange", event.target.value);
     setInputValue(event.target.value);
     // this.setState({ inputValue: event.target.value });
   };
 
   const onBadgeBlur = (e, item) => {
     // const { onItemChanged } = this.props;
-    console.log("badge blur", e.target.value, item);
+    // console.log("badge blur", e.target.value, item);
     if (onItemChanged) {
       onItemChanged(item);
     }
@@ -100,7 +100,7 @@ function MultiDownshift({
   };
 
   const onWrapperClick = (e) => {
-    console.log("> wrapperclick inputWrapper", inputWrapper);
+    // console.log("> wrapperclick inputWrapper", inputWrapper);
     if (inputWrapper === e.target || input === e.target) {
       focusOnInput();
       e.stopPropagation();
@@ -122,14 +122,14 @@ function MultiDownshift({
     setInputWrapper(c);
   };
   useEffect(() => {
-    console.log("input", input);
+    // console.log("input", input);
   }, [input]);
 
   // const inputWrapperRef = (c) => {
   //   setInputWrapper(c);
   // };
   useEffect(() => {
-    console.log("inputWrapper", inputWrapper);
+    // console.log("inputWrapper", inputWrapper);
   }, [inputWrapper]);
 
   // const { itemToString, items, ...rest } = this.props;
@@ -158,8 +158,8 @@ function MultiDownshift({
           onKeyDown: onInputKeyDown,
           placeholder: "Select Tag(s)",
         });
-        console.log("inputProps", inputProps);
-        console.log("downshift selectedItem", selectedItem, selectedItems);
+        {/* console.log("inputProps", inputProps); */}
+        {/* console.log("downshift selectedItem", selectedItem, selectedItems); */}
         const tagItems = selectedItems?.map((item, index) => {
           return { value: item, index };
         });

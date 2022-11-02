@@ -1,4 +1,4 @@
-const textFilter = ({ row, value }) => {
+const textFilter = ( row, value ) => {
   console.log("textFilter", row, value);
   if (!value) return true;
   const { handle, title, description, tags, vendor, type, variants } = row;

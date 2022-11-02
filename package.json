@@ -4,10 +4,13 @@
     "develop": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
     "install:server": "cd server && npm install",
     "install:client": "cd client && npm install",
-    "start:client": "cd client && npm start"
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\""
   },
   "dependencies": {
     "concurrently": "^7.5.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "pull": "^2.1.1"
   }
 }
