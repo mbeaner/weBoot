@@ -35,7 +35,7 @@ function ProductTable() {
           id: 1,
           size: "S",
           color: "Black",
-          inventory: 10,
+          inventory: 0,
           image: "/assets/images/send-help.png",
         },
         {
@@ -79,7 +79,7 @@ function ProductTable() {
           id: 1,
           size: "OSFM",
           color: "Red",
-          Inventory: 100,
+          inventory: 100,
           image: "/assets/images/mim-hat.png",
         },
       ],
