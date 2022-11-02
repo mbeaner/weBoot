@@ -15,6 +15,18 @@ const typeDefs = gql`
     products: [Product]
   }
 
+  type Variant {
+    size: String
+    color: String
+    inventory: Int
+    image: String
+  }
+
+  type Review {
+    rating: Int
+    body: String
+  }
+
   type Product {
     _id: ID
     title: String
@@ -24,9 +36,9 @@ const typeDefs = gql`
     compareAtPrice: Int
     vendor: String
     tags: [String]
-    reviews: [String]
+    reviews: [Review]
     upc: Int
-    variants: [String]
+    variants: [Variant]
   }
 
   type Checkout {
