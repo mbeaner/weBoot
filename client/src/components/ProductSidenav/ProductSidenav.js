@@ -32,14 +32,15 @@ export default function ProductSidenav({
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
   const [table, setTable] = useState(null);
-  const [originalData, setOriginalData] = useState(null);
+  // const [originalData, setOriginalData] = useState(null);
 
   useEffect(() => {
     if (!show || !product.id) return;
     console.log("sideNav product", product);
+    setVariants(product.variants);
     setTitle(product.title);
     setId(product.id);
-  }, [show]);
+  }, [show, product]);
 
   useEffect(() => {
     console.log("variants", variants);
@@ -47,9 +48,9 @@ export default function ProductSidenav({
     console.log(imgArr);
     setImages(imgArr);
     setLoading(false);
-    const data = variants;
-    setOriginalData(data);
-  }, [variants]);
+    // const data = variants;
+    // setOriginalData(data);
+  }, [setLoading, variants]);
 
   useEffect(() => {
     console.log("loading", loading);
@@ -57,8 +58,8 @@ export default function ProductSidenav({
       $("#content-loading").show();
       $("#sidenav-body").hide();
     } else {
-      $("#content-loading").fadeOut(450);
-      $("#sidenav-body").fadeIn(1000);
+      $("#content-loading").fadeOut(250);
+      $("#sidenav-body").fadeIn(400);
     }
   }, [loading]);
 
@@ -74,18 +75,7 @@ export default function ProductSidenav({
       $("#cancel-var-changes").prop("disabled", true).addClass("opacity-0");
     } else if (action === "submit") {
       const rows = table.getSelectedRows();
-      const dataFields = [
-        "id",
-        "title",
-        "price",
-        "sku",
-        "compare_at_price",
-        "option1",
-        "option2",
-        "option3",
-        "barcode",
-        "tax_code",
-      ];
+      const dataFields = ["id", "name", "size", "color", "inventory"];
       // let updated = 0
       rows.forEach(async (row) => {
         const data = row.getData();
@@ -110,31 +100,46 @@ export default function ProductSidenav({
     <Offcanvas
       id="product-sidenav"
       className=""
+      placement="end"
       show={show}
       onHide={() => {
         setShow(false);
+        setLoading(false);
+        setVariants([]);
+        setTitle("");
+        setId("");
+        setImages([]);
       }}
     >
       <Offcanvas.Header>
-        <Offcanvas.Title id="productTitle">{`${title} ${id}`}</Offcanvas.Title>{" "}
         <Col
-          className="align-items-end d-flex flex-column"
+          className="align-items-start d-flex flex-column"
           onClick={handleClick}
         >
-          <FaWindowClose id="close-filters" onClick={() => setShow(false)} />
+          <FaWindowClose
+            id="close-filters"
+            onClick={() => {
+              setShow(false);
+              setLoading(false);
+              setVariants([]);
+              setTitle("");
+              setId("");
+              setImages([]);
+            }}
+          />
           <div>
             <TbArrowBigLeftLines
               className="resize"
               onClick={() => {
                 const currentWidth = $("#product-sidenav").width();
-                $("#product-sidenav").width(currentWidth - 300);
+                $("#product-sidenav").width(currentWidth + 300);
               }}
             />
             <TbArrowBigRightLines
               className="resize"
               onClick={() => {
                 const currentWidth = $("#product-sidenav").width();
-                $("#product-sidenav").width(currentWidth + 300);
+                $("#product-sidenav").width(currentWidth - 300);
               }}
             />
           </div>
@@ -159,6 +164,7 @@ export default function ProductSidenav({
             </Button>
           </div>
         </Col>
+        <Offcanvas.Title className="">{`${title}`}</Offcanvas.Title>{" "}
       </Offcanvas.Header>
       <Offcanvas.Body>
         <Row id="sidenav-body" className="">
@@ -167,7 +173,7 @@ export default function ProductSidenav({
           <VariantTable
             id={id}
             title={title}
-            setVariants={setVariants}
+            variants={variants}
             setTable={setTable}
           />
         </Row>

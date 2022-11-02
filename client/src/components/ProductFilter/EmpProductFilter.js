@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Tabulator } from "tabulator-tables";
-import FilterRow from "./Row.js";
+import FilterRow from "./EmpRow.js";
 import { remove, map } from "lodash";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { MdOutlineDeleteSweep } from "react-icons/md/index.esm.js";
 import { FcAddRow } from "react-icons/fc/index.esm.js";
 import $ from "jquery";
 import "./style.css";
 
-function ProductFilter() {
+function EmpProductFilter() {
   const [filter, setFilter] = useState(
-    JSON.parse(localStorage.getItem("productFilter")) || [
+    JSON.parse(localStorage.getItem("empProductFilter")) || [
       { field: "title", type: "like", value: "", row: 1 },
     ]
   );
@@ -47,7 +47,7 @@ function ProductFilter() {
       if (f.row === thisRow) {
         console.log("change", change, type);
         if (change === "value" && type === "regex") {
-          const valStr = value.trim().replace(/  /g, " ").replace(/ /g, "|");
+          const valStr = value.trim().replace(/ {2}/g, " ").replace(/ /g, "|");
           console.log("valStr", valStr);
           const regex =
             value !== "" ? new RegExp(`^(?!.*(${valStr})).*$`, "i") : "";
@@ -60,7 +60,6 @@ function ProductFilter() {
     });
     console.log("filter updated", newFilter);
     setFilter(newFilter);
-    
   };
 
   const deleteRow = (thisRow) => {
@@ -80,7 +79,7 @@ function ProductFilter() {
         newFilter = [{ field: "title", type: "like", value: "", row: thisRow }];
         row.css({ backgroundColor: "rgb(247, 247, 247)", opacity: 1 });
         setFilter(newFilter);
-        
+
         setNumRows(1);
       }, 100);
       return;
@@ -99,7 +98,7 @@ function ProductFilter() {
   };
 
   useEffect(() => {
-    console.log("ProductFilter mounted", filter);
+    console.log("EmpProductFilter mounted");
   }, []);
 
   useEffect(() => {
@@ -113,9 +112,9 @@ function ProductFilter() {
   }, [rows]);
 
   useEffect(() => {
-    console.log("filtering table", filter, numRows,  rows, update);
+    // console.log("filtering table", filter, numRows, rows, update);
     // setProdFilter(filter);
-    localStorage.setItem("productFilter", JSON.stringify(filter));
+    localStorage.setItem("empProductFilter", JSON.stringify(filter));
     if (update?.change !== "value") {
       const newRows = filter?.map((f, i) => {
         console.log("adding row", f);
@@ -148,6 +147,7 @@ function ProductFilter() {
     console.log("newFilter", newFilter);
     table.setFilter(newFilter);
     table.refreshFilter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   const clearFilter = () => {
@@ -155,18 +155,16 @@ function ProductFilter() {
     // ${}
     setFilter([{ field: "title", type: "like", value: "", row: 1 }]);
     setNumRows(1);
-    setTotalRows(1);
   };
 
   const addRow = () => {
     console.log("adding row", "curent filter", filter);
-    const row = Math.round(Math.random()*10000)
+    const row = Math.round(Math.random() * 10000);
     setNumRows(numRows + 1);
     let newFilter = [...filter];
     newFilter.push({ field: "title", type: "like", value: "", row });
     console.log("added Row", row, newFilter);
     setFilter(newFilter);
-    
   };
 
   return (
@@ -201,4 +199,4 @@ function ProductFilter() {
   );
 }
 
-export default ProductFilter;
+export default EmpProductFilter;

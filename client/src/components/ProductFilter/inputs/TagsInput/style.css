@@ -1,24 +1,24 @@
-.vendor-badge {
+.tags-badge {
   background-image: linear-gradient(
     to top,
-    rgb(51, 109, 51) 0%,
-    var(--green) 100%
+    var(--primary) 0%,
+    var(--primary) 100%
   );
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   text-shadow: 0 0.15rem 0.25rem rgba(0, 0, 0, 0.25);
   user-select: none;
-  /* margin-top: 30px */
+  margin-top: 10px;
 }
 
 button[aria-label="open menu"] {
-  background-color: var(--green);
+  background-color: var(--primary);
 }
 
-#vendor-select {
+#tags-select {
   width: 300px;
 }
 
-.vendor-delete {
+.tags-delete {
   color: red;
   font-size: 0.5em;
   width: 5% !important;
@@ -27,13 +27,14 @@ button[aria-label="open menu"] {
 .badge {
   font-size: 1.1em;
 }
-.outline{
+.outline {
   -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.356);
-  text-shadow: 0 0 1px black
+  text-shadow: 0 0 1px black;
 }
 
-.vendor-expand{
-  font-size: 1em;
+.tags-expand {
+  font-size: 1.25em;
+  font-weight: 800;
   margin: 0;
   padding: 0;
   border: none;
@@ -41,15 +42,15 @@ button[aria-label="open menu"] {
   transition: all 0.2s ease-in-out;
 }
 
-#vendor-col{
+
+#tags-col {
   max-width: 300px;
 }
 
-#badge-col{
-  width: 50%
+#badge-col {
+  width: 50%;
 }
 
-#vendor-label{
-  background-color: var(--green);
-  color: white;
+#tags-label {
+  display:none
 }

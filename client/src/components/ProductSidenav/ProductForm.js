@@ -12,8 +12,6 @@ export default function ProductForm({ product }) {
   const [values, setValues] = useState([]);
   const [originalValues, setOriginalValues] = useState([]);
 
-  const myFields = ["title", "vendor", "product_type", "handle", "tags"];
-
   const handleChanges = (e) => {
     e.stopPropagation();
     console.log(e.target, e.target.value);
@@ -67,15 +65,22 @@ export default function ProductForm({ product }) {
   }, [values, originalValues]);
 
   useEffect(() => {
+    const customerFields = [
+      "price",
+      "category",
+      "description",
+      "reviews",
+      "tags",
+    ];
     console.log("product changed", product);
     const newFields = Object.keys(product).filter((key) =>
-      myFields.includes(key)
+      customerFields.includes(key)
     );
     console.log("newFields", newFields);
     setFields(newFields);
     const newValues = {};
     newFields.map((field) => {
-      newValues[field] = product[field];
+      return (newValues[field] = product[field]);
     });
     newValues.id = product.id;
     console.log("newValues", newValues);
@@ -86,7 +91,7 @@ export default function ProductForm({ product }) {
     <Row className="justify-content-center">
       <Form
         id="product-form"
-        className=""
+        className="customer-form"
         onChange={handleChanges}
         onSubmit={handleSubmit}
       >

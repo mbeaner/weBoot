@@ -1,8 +1,12 @@
-import { AdvancedFilter, ProductFilter } from "../index.js";
-import { Offcanvas, Row, Col } from "react-bootstrap";
+import {
+  // AdvancedFilter,
+  // EmpProductFilter,
+  CustProductFilter,
+} from "../index.js";
+import { Offcanvas, Row } from "react-bootstrap";
 import {
   BsFilterCircleFill,
-  BsFillArrowRightCircleFill,
+  BsFillArrowLeftCircleFill,
 } from "react-icons/bs/index.esm.js";
 import { FaWindowClose } from "react-icons/fa/index.esm.js";
 import {
@@ -10,25 +14,28 @@ import {
   TbArrowBigRightLines,
 } from "react-icons/tb/index.esm.js";
 import React, { useState, useEffect } from "react";
-import { setAdvFilters } from "../AdvancedFilter/index.js";
-import { Tabulator } from "tabulator-tables";
 import $ from "jquery";
 import "./style.css";
-import setHeight from "../../helpers/setHeight.js";
-import { pick } from "lodash";
 
-export default function FilterSidenav({}) {
-  const [show, setShow] = useState(false);
+export default function FilterSidenav({show, setShow}) {
   const [hover, setHover] = useState(false);
+  const [width, setWidth] = useState(400);
 
   useEffect(() => {
     console.log("show changed", show);
     setHover(false);
-  }, [show]);
+    if (!show) {
+      $("#product-table").css({ "margin-left": "200px" , width: "calc(90% - 200px)" });
+    } else {
+      const newMargin = width
+      $("#product-table").css({ "margin-left": newMargin, width: `calc(100% - ${newMargin + 200}px)` });
+    }
+  }, [show, width]);
+
+  useEffect(() => {}, [width]);
 
   useEffect(() => {
     console.log("filter-sidenav mounted");
-
   }, []);
 
   function ShowFilters() {
@@ -49,7 +56,7 @@ export default function FilterSidenav({}) {
             setHover(false);
           }}
         />
-        <BsFillArrowRightCircleFill
+        <BsFillArrowLeftCircleFill
           className={`show-filters ${
             hover ? "opacity-100 pe-auto" : "opacity-0 pe-none"
           }`}
@@ -74,12 +81,14 @@ export default function FilterSidenav({}) {
       <Offcanvas
         id="filter-sidenav"
         show={show}
-        placement="end"
+        // placement="end"
         scroll={true}
-        backdrop={true}
+        backdrop={false}
         onHide={() => {
           setShow(false);
+          setHover(false);
         }}
+        style={{ width: width }}
       >
         <Offcanvas.Header className="justify-content-between">
           {/* <Offcanvas.Title>
@@ -90,23 +99,25 @@ export default function FilterSidenav({}) {
             <TbArrowBigLeftLines
               className="resize"
               onClick={() => {
-                const currentWidth = $("#filter-sidenav").width();
-                $("#filter-sidenav").width(currentWidth + 300);
+                let newWidth = $("#filter-sidenav").width() - 300;
+                newWidth = newWidth < 400 ? 400 : newWidth;
+                setWidth(newWidth);
               }}
             />
             <TbArrowBigRightLines
               className="resize"
               onClick={() => {
-                const currentWidth = $("#filter-sidenav").width();
-                $("#filter-sidenav").width(currentWidth - 300);
+                const newWidth = $("#filter-sidenav").width() + 300;
+                setWidth(newWidth);
               }}
             />
           </div>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Row>
-            <ProductFilter />
-            <AdvancedFilter />
+            <CustProductFilter />
+            {/* <ProductFilter /> */}
+            {/* <AdvancedFilter /> */}
           </Row>
         </Offcanvas.Body>
       </Offcanvas>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Carousel, Image } from "react-bootstrap";
 import $ from "jquery";
 
-function imageCarousel({ images, show }) {
+function ImageCarousel({ images, show }) {
   const [indicators, setIndicators] = useState([]);
   const [numImages, setNumImages] = useState(0);
   const [carouselInt, setCarouselInt] = useState(null);
@@ -13,6 +13,7 @@ function imageCarousel({ images, show }) {
       clearInterval(carouselInt);
       setCarouselInt(null);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ function imageCarousel({ images, show }) {
     $(".carousel-control-prev-icon").on("click", () => {
       setActiveIndex((prev) => (prev <= 0 ? numImages - 1 : prev - 1));
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numImages]);
 
   useEffect(() => {
@@ -43,10 +45,11 @@ function imageCarousel({ images, show }) {
     setActiveIndex(() => 0);
     clearInterval(carouselInt);
     setCarouselInt(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show]);
 
   useEffect(() => {
-    console.log("imageCarousel images", images, images.length);
+    console.log("ImageCarousel images", images, images.length);
     console.log("carouselInt", carouselInt);
     clearInterval(carouselInt);
     if (!images.length) {
@@ -66,10 +69,11 @@ function imageCarousel({ images, show }) {
       newIndicators.push(image);
     }
     setIndicators(newIndicators);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [images]);
 
   useEffect(() => {
-    console.log("imageCarousel indicators", indicators);
+    console.log("ImageCarousel indicators", indicators);
     if (indicators.length === 0) return;
     const activateImage = (e) => {
       const image = Number(e.target.id.split("-")[1]) - 1;
@@ -104,4 +108,4 @@ function imageCarousel({ images, show }) {
   );
 }
 
-export { imageCarousel as Carousel };
+export { ImageCarousel as Carousel };
