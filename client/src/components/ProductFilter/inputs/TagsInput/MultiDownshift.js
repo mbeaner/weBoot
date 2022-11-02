@@ -158,8 +158,6 @@ function MultiDownshift({
           onKeyDown: onInputKeyDown,
           placeholder: "Select Tag(s)",
         });
-        {/* console.log("inputProps", inputProps); */}
-        {/* console.log("downshift selectedItem", selectedItem, selectedItems); */}
         const tagItems = selectedItems?.map((item, index) => {
           return { value: item, index };
         });

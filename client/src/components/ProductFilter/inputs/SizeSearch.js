@@ -15,7 +15,6 @@ export default function SizeSearch({ handleChanges }) {
   };
 
   useEffect(() => {
-    if (!sizes.length) return;
     handleChanges({ sizes });
   }, [sizes]);
 

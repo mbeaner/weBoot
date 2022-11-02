@@ -13,7 +13,7 @@ import { BiCategoryAlt } from "react-icons/bi/index.esm.js";
 import { BsRulers } from "react-icons/bs/index.esm.js";
 import { Tabulator } from "tabulator-tables";
 import { find } from "lodash";
-import { colorFilter, textFilter,  ratingFilter, tagsFilter } from "./utils/index.js";
+import { colorFilter, textFilter,  ratingFilter, tagsFilter, sizeFilter } from "./utils/index.js";
 
 export default function CustProductFilter() {
   const [filter, setFilter] = useState({
@@ -136,12 +136,15 @@ export default function CustProductFilter() {
         } else if (field === "categories") {
           const { category } = row;
           const categories = value;
+          if (!categories.length) return true;
           return categories.includes(category);
         } else if (field === "rating") {
           return ratingFilter(row, value);
         } else if (field === 'tags') { 
           return tagsFilter(row, value);
-        } else {
+        } else if (field === 'sizes') {
+          return sizeFilter(row, value);
+         } else {
           return true;
         }
       },
