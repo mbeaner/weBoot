@@ -73,7 +73,7 @@ const Profile = () => {
 
     setChanged(changed);
     console.log("name", name, "value", value);
-    if (name === 'password' && changed) setShowPasswordConfirm(true);
+    if (name.includes('password') && changed) setShowPasswordConfirm(true);
     else setShowPasswordConfirm(false);
     setFormState({
       ...formSate,
