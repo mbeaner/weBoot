@@ -29,6 +29,10 @@ const userSchema = new Schema({
     default: false,
   },
   orders: [Order.schema],
+  image: {
+    type: String,
+    default: 'https://via.placeholder.com/150',
+  }
 });
 
 userSchema.pre('save', async function (next) {

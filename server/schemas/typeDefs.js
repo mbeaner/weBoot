@@ -7,6 +7,7 @@ const typeDefs = gql`
     lastName: String
     email: String
     orders: [Order]
+    image: String
   }
 
   type Order {

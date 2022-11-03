@@ -6,7 +6,9 @@
     "install:client": "cd client && npm install",
     "start:client": "cd client && npm start",
     "start:server": "cd server && npm start",
-    "start": "concurrently \"npm run start:server\" \"npm run start:client\""
+    "start:dev": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "heroku-postbuild": "cd client && npm run build",
+    "start": "cd server && npm start"
   },
   "dependencies": {
     "concurrently": "^7.5.0",

@@ -6,6 +6,7 @@ import FilterSidenav from "./FilterSidenav/FilterSidenav.js";
 import ProductCard from "./ProductCard.js";
 import CustProductFilter from "./ProductFilter/CustProductFilter.js";
 import PriceSlider from "./PriceSlider/PriceSlider.js";
+import Nav from './Nav/index.js';
 
 export {
   EmpProductFilter,
@@ -16,4 +17,5 @@ export {
   ProductCard,
   CustProductFilter,
   PriceSlider,
+  Nav
 };
