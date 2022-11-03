@@ -111,7 +111,7 @@ function ProductTable() {
           headerHozAlign: "center",
           headerSort: false,
           titleFormatter: function (column) {
-            return `<img src="/assets/images/weboot-logo3.png" height: 100px;"/>`;
+            return `<img src="/assets/images/logo_noBG.png" height: 150px;"/>`;
           },
         },
         {
