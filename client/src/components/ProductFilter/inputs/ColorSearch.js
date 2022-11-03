@@ -35,6 +35,7 @@ export default function ColorSearch({ handleChanges }) {
     console.log("active colors", active);
     // if (!active.length) return
     handleChanges({ colors: active });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   function colorSwatch(color) {

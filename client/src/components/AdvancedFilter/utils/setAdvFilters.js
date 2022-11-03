@@ -3,7 +3,7 @@ import _ from "lodash";
 import { DateTime } from "luxon";
 import { beforeDate, afterDate } from "./index.js";
 
-export default (filters) => {
+const setAdvFilters  = (filters) => {
   _.forEach(filters, (filterGroup, group) => {
     const {
       radio,
@@ -204,6 +204,11 @@ export default (filters) => {
           afterCheck.prop("checked", true);
         }
         break;
+      default:
+        console.log("default");
+        return
     }
   });
 };
+
+export default setAdvFilters

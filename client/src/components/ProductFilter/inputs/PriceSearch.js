@@ -10,6 +10,11 @@ export default function PriceSearch({ handleChanges }) {
         handleChanges(e);
       }}
     >
+      <div className="filter-label">
+        <Col>
+          <Form.Label className="">💸 Price:</Form.Label>
+        </Col>
+      </div>
       <Col>
         <Row>
           <div className="col-one">

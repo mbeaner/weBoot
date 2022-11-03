@@ -58,6 +58,7 @@ export default function TagsInput({ handleChanges }) {
     // const table = Tabulator.findTable("#table")[0];
     // const url = `/products?vendors=${vendors}`;
     // table.setData(url)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ selectedItems]);
 
   const onRemoveItem = (item) => {
