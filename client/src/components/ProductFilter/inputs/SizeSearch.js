@@ -16,6 +16,7 @@ export default function SizeSearch({ handleChanges }) {
 
   useEffect(() => {
     handleChanges({ sizes });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sizes]);
 
   return (
