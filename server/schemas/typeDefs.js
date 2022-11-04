@@ -8,6 +8,7 @@ const typeDefs = gql`
     email: String
     orders: [Order]
     image: String
+    password: String
   }
 
   type Order {
@@ -72,6 +73,7 @@ const typeDefs = gql`
       lastName: String
       email: String
       password: String
+      image: String
     ): User
     login(email: String!, password: String!): Auth
   }

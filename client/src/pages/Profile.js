@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Image,
   Row,
@@ -15,29 +15,40 @@ import { UPDATE_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 import { FaEdit } from "react-icons/fa/index.esm.js";
 import $ from "jquery";
+import AvatarEditor from "react-avatar-editor";
+import Dropzone from "react-dropzone";
+import axios from "axios";
 
 const Profile = () => {
   const [userData, setUserData] = useState({});
-  const [image, setImage] = useState("");
-  const [imagePreview, setImagePreview] = useState("");
-  const [formSate, setFormState] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
+  const [formState, setFormState] = useState({
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null,
+    image: null,
   });
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [editing, setEditing] = useState(false);
   const [changed, setChanged] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
   // eslint-disable-next-line no-unused-vars
   const { loading, data } = useQuery(QUERY_USER);
   const [updateUser, { error }] = useMutation(UPDATE_USER);
+  const [imageChanged, setImageChanged] = useState(false);
+  const [editor, setEditor] = useState(null);
   // const userData = data?.user || {};
   useEffect(() => {
     if (data) {
       console.log("userData", data.user);
       setUserData(data.user);
+      setFormState({
+        firstName: data.user.firstName,
+        lastName: data.user.lastName,
+        email: data.user.email,
+        image: data.user.image,
+      });
     }
   }, [data]);
   useEffect(() => {
@@ -51,18 +62,30 @@ const Profile = () => {
     }
   }, [error]);
   useEffect(() => {
-    console.log("formState", formSate);
-  }, [formSate]);
+    console.log("formState", formState);
+  }, [formState]);
+
+  const handleDrop = (dropped) => {
+    console.log("dropped", dropped);
+    const file = dropped[0];
+    setImagePreview(file);
+    const path = `/assets/images/uploads/profile-${userData._id}.jpg`;
+    setFormState({
+      ...formState,
+      image: path,
+    });
+    setImageChanged(true);
+  };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    console.log("formSate", formSate);
+    console.log("formState", formState);
     try {
+      if (!formState.password) delete formState.password;
       const { data } = await updateUser({
-        variables: { ...formSate },
+        variables: { ...formState },
       });
       console.log("data", data);
-      Auth.login(data.updateUser.token);
     } catch (err) {
       console.error(err);
     }
@@ -73,40 +96,105 @@ const Profile = () => {
 
     setChanged(changed);
     console.log("name", name, "value", value);
-    if (name.includes('password') && changed) setShowPasswordConfirm(true);
-    else setShowPasswordConfirm(false);
+    if (changed) {
+      setEditing(true);
+      if (name.includes("password")) setShowPasswordConfirm(true);
+    } else {
+      setShowPasswordConfirm(false);
+      $('[name="passwordConfirm"]').val("");
+    }
     setFormState({
-      ...formSate,
+      ...formState,
       [name]: value,
     });
   };
 
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     const target = $(e.target);
-    const type = target.attr("id").split('-')[1] || target.attr('id')
-    console.log(type)
-    setEditing(!editing)
-  }
+    const type =
+      target.attr("id")?.split("-")[1] ||
+      target.parent().attr("id").split("-")[1] ||
+      target.attr("id");
+    console.log("type", type);
+    switch (type) {
+      case "icon":
+        setEditing(true);
+        break;
+      case "save":
+        setImageChanged(false);
+        try {
+          console.log("formState", formState);
+          if (!formState.password) delete formState.password;
 
+          const { data } = await updateUser({
+            variables: { ...formState },
+          });
+          console.log("data", data);
+          const id = userData._id;
+          if (editor) {
+            const canvas = editor.getImage();
+            const img = editor.getImageScaledToCanvas().toDataURL();
+            console.log("canvas", canvas, "img", typeof img);
+            const newImg = { data: img, contentType: "image/png" };
+            axios.post(`image/${id}`, { newImg }).then((res) => {
+              console.log("res", res);
+            });
+          }
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+      case "cancel":
+        setImageChanged(false);
+        
+        break;
+      default:
+        break;
+    }
+  };
+  const setEditorRef = (editor) => setEditor(editor);
   return (
     <Container fluid>
       <Row>
         <Col xs={2}>
-          <Image id='profile-img' src={userData.image} roundedCircle onClick={handleClick} />
-          <Form.Control
-            id="image-upload"
-            type="file"
-            placeholder="Photo"
-            require=""
-            capture
-            hidden
-          />
-          <div id="upload-btns" className="">
-            <Button id="img-save" className="profile-btn mx-3 btn-success">
+          <Dropzone
+            onDrop={handleDrop}
+            noKeyboard
+            noClick={imageChanged}
+            style={{ width: "250px", height: "250px" }}
+          >
+            {({ getRootProps, getInputProps, isDragActive }) => (
+              <div {...getRootProps()}>
+                <AvatarEditor
+                  ref={setEditorRef}
+                  image={imagePreview || userData.image}
+                  width={200}
+                  height={200}
+                  border={0}
+                  borderRadius={100}
+                  color={[255, 255, 255, 0]} // RGBA
+                  scale={1}
+                  rotate={0}
+                />
+                <input {...getInputProps()} name="pic" />
+                {isDragActive ? <p>Drop the files here ...</p> : <p></p>}
+              </div>
+            )}
+          </Dropzone>
+          <div id="upload-btns" className="" hidden={!imageChanged}>
+            <Button
+              id="img-save"
+              onClick={handleClick}
+              className="profile-btn mx-3 btn-success"
+            >
               Save
             </Button>
-            <Button id="img-cancel" className="profile-btn mx-3 btn-danger">
+            <Button
+              id="img-cancel"
+              onClick={handleClick}
+              className="profile-btn mx-3 btn-danger"
+            >
               Cancel
             </Button>
           </div>
@@ -188,7 +276,7 @@ const Profile = () => {
             </Button>
           </Form>
         </Col>
-        <Col id='col-icon' hidden={!loggedIn} onClick={handleClick}>
+        <Col id="col-icon" hidden={!loggedIn} onClick={handleClick}>
           <FaEdit id="edit-icon" />
         </Col>
       </Row>

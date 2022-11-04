@@ -72,6 +72,7 @@ const resolvers = {
     },
   },
   Mutation: {
+    
     addUser: async (parent, args) => {
       const user = await User.create(args);
       const token = signToken(user);
@@ -93,6 +94,7 @@ const resolvers = {
       throw new AuthenticationError('Not logged in');
     },
     updateUser: async (parent, args, context) => {
+      console.log('args', args)
       if (context.user) {
         return await User.findByIdAndUpdate(context.user._id, args, {
           new: true,
