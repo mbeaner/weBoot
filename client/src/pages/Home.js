@@ -110,8 +110,10 @@ function ProductTable() {
           visible: true,
           headerHozAlign: "center",
           headerSort: false,
-          titleFormatter: function (column) {
-            return `<img src="/assets/images/logo_noBG.png" height: 150px;"/>`;
+          titleFormatter: function () {
+            return `
+            <img src="/assets/images/orb.gif" height=75px;"/>
+            <img src="/assets/images/logo_noBG.png" height=40px;"/>`;
           },
         },
         {

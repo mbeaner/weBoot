@@ -6,18 +6,20 @@ import { FaShoppingCart } from 'react-icons/fa';
 function Nav() {
   const linkStyle = {
     textDecoration: 'none',
-    color: 'black',
+    color: 'white',
   };
   const menuStyle = {
     marginLeft: '25px',
   };
   const headerStyle = {
     height: '60px',
+
   };
   const wrapperStyle = {
     padding: '10px 20px',
     display: 'flex',
     justifyContent: 'space-between',
+    backgroundColor: '#18355B',
   };
   const h1Style = {
     flex: '1',
@@ -36,11 +38,8 @@ function Nav() {
     return (
       <header style={headerStyle}>
         <div className="wrapper" style={wrapperStyle}>
-          <h1 style={h1Style}>
-            <Link style={linkStyle} to="/">
-              weBoot
-            </Link>
-          </h1>
+          <img src="/assets/images/orb.gif" height="40px" />
+          <img src="/assets/images/logo_noBG.png" />
 
           <nav style={navStyle}>
             <div className="menu-item" style={menuStyle}>
@@ -66,11 +65,8 @@ function Nav() {
     return (
       <header style={headerStyle}>
         <div className="wrapper" style={wrapperStyle}>
-          <h1 style={h1Style}>
-            <Link style={linkStyle} to="/">
-              weBoot
-            </Link>
-          </h1>
+          <img src="/assets/images/orb.gif" height="40px" />
+          <img src="/assets/images/logo_noBG.png" />
 
           <nav style={navStyle}>
             <div className="menu-item" style={menuStyle}>
