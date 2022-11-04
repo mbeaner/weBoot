@@ -31,7 +31,7 @@ const userSchema = new Schema({
   orders: [Order.schema],
   image: {
     type: String,
-    default: 'https://via.placeholder.com/150',
+    default: false,
   }
 });
 
@@ -39,6 +39,16 @@ userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+
+  next();
+});
+
+userSchema.pre('findOneAndUpdate', async function (next) {
+  const password = this.getUpdate().password;
+  if (password) {
+    const saltRounds = 10;
+    this.getUpdate().password = await bcrypt.hash(password, saltRounds);
   }
 
   next();
