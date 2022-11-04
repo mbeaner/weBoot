@@ -147,7 +147,7 @@ const Profile = () => {
         break;
       case "cancel":
         setImageChanged(false);
-        
+        setImagePreview(null);
         break;
       default:
         break;
@@ -168,7 +168,11 @@ const Profile = () => {
               <div {...getRootProps()}>
                 <AvatarEditor
                   ref={setEditorRef}
-                  image={imagePreview || userData.image}
+                  image={
+                    imagePreview ||
+                    userData.image ||
+                    "https://via.placeholder.com/200"
+                  }
                   width={200}
                   height={200}
                   border={0}
