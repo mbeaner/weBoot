@@ -1,0 +1,10 @@
+.order-card{
+  width: 400px
+}
+
+#order-title{
+  font-weight: 800;
+  margin: 20px;
+  width: 400px;
+  text-align: center;
+}

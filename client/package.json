@@ -17,7 +17,7 @@
     "jquery": "^3.6.1",
     "jwt-decode": "^2.2.0",
     "lodash": "^4.17.21",
-    "luxon": "^3.0.4",
+    "luxon": "^3.1.0",
     "match-sorter": "^6.3.1",
     "rc-slider": "^10.0.1",
     "rc-tooltip": "^5.2.2",
