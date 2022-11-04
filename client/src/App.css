@@ -5,6 +5,7 @@
   border-radius: 2px;
   background: rgb(143, 141, 141);
   margin: 10px;
+
 }
 #product-table {
   margin-top: 100px;
@@ -23,8 +24,9 @@
 background-color: #18355B;
 color: white;
 border-radius: 15px;
-padding: 3px;
+padding: 5px;
 font-size: 80%;
+width: 100%;
 }
 
 /* Shannon come back to this */
