@@ -40,7 +40,9 @@ function Signup(props) {
   const wrapperStyle = {
     padding: '20px',
     width: '40%',
-    backgroundColor: 'white',
+    backgroundColor: '#18355B',
+    color: 'white',
+    borderRadius: '25px',
   };
   const titleStyle = {
     fontSize: '24px',
@@ -55,6 +57,7 @@ function Signup(props) {
     minWidth: '40%',
     margin: '20px 10px 0px 0px',
     padding: '10px',
+    borderRadius: '10px',
   };
   const pStyle = {
     fontSize: '12px',
@@ -68,10 +71,11 @@ function Signup(props) {
     backgroundColor: 'teal',
     color: 'white',
     cursor: 'pointer',
+    borderRadius: '10px',
   };
 
   return (
-    <div classname="container" style={containerStyle}>
+    < div classname="container" style={containerStyle} >
       <div classname="wrapper" style={wrapperStyle}>
         <div className="title" style={titleStyle}>
           {' '}
@@ -113,7 +117,7 @@ function Signup(props) {
           <button style={buttonStyle}>CREATE</button>
         </form>
       </div>
-    </div>
+    </div >
   );
 }
 

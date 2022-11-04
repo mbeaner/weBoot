@@ -37,8 +37,10 @@ function Login(props) {
   };
   const wrapperStyle = {
     padding: '20px',
-    width: '30%',
-    backgroundColor: 'white',
+    width: '40%',
+    backgroundColor: '#18355B',
+    color: 'white',
+    borderRadius: '25px',
   };
   const titleStyle = {
     fontSize: '24px',
@@ -53,6 +55,7 @@ function Login(props) {
     minWidth: '40%',
     margin: '10px 0px',
     padding: '10px',
+    borderRadius: '10px',
   };
   const pStyle = {
     fontSize: '12px',
@@ -67,10 +70,13 @@ function Login(props) {
     color: 'white',
     cursor: 'pointer',
     marginBottom: '10px',
+    borderRadius: '10px',
   };
   const linkStyle = {
     fontSize: '12px',
     margin: '5x 0px',
+    color: 'white',
+    textDecoration: 'none',
   };
 
   return (

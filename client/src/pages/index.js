@@ -1,6 +1,6 @@
-import Home from "./Home";
-import Login from "./Login";
-import Signup from "./Signup";
-import Profile from "./Profile/Profile.js";
+import Home from './Home';
+import Login from './Login';
+import Signup from './Signup';
+import Profile from './Profile.js';
 
 export { Home, Login, Signup, Profile };
