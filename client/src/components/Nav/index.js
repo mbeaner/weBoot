@@ -13,7 +13,6 @@ function Nav() {
   };
   const headerStyle = {
     height: '60px',
-
   };
   const wrapperStyle = {
     padding: '10px 20px',
@@ -32,6 +31,7 @@ function Nav() {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    paddingRight: '50px',
   };
 
   if (Auth.loggedIn()) {
@@ -39,7 +39,9 @@ function Nav() {
       <header style={headerStyle}>
         <div className="wrapper" style={wrapperStyle}>
           <img src="/assets/images/orb.gif" height="40px" />
-          <img src="/assets/images/logo_noBG.png" />
+          <a href="/">
+            <img src="/assets/images/logo_noBG.png" />
+          </a>
 
           <nav style={navStyle}>
             <div className="menu-item" style={menuStyle}>
@@ -51,11 +53,6 @@ function Nav() {
               <a href="/" style={linkStyle} onClick={() => Auth.logout()}>
                 Logout
               </a>
-            </div>
-            <div className="menu-item" style={menuStyle}>
-              <span>
-                <FaShoppingCart />
-              </span>
             </div>
           </nav>
         </div>

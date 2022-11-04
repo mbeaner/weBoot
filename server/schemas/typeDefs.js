@@ -95,6 +95,7 @@ const typeDefs = gql`
       address: AddressInput
     ): User
     login(email: String!, password: String!): Auth
+    updateProduct(_id: ID!, quantity: Int!): Product
   }
 `;
 
