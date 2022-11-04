@@ -8,7 +8,15 @@ export const QUERY_USER = gql`
       lastName
       email
       image
+      orders {
+        _id
+        purchaseDate
+        products {
+          _id
+          title
+          price
+        }
+      }
     }
   }
 `;
-

@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
+const Product = require('./Product');
 
 const orderSchema = new Schema({
   purchaseDate: {
@@ -7,10 +8,7 @@ const orderSchema = new Schema({
     default: Date.now,
   },
   products: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Product',
-    },
+    Product.schema
   ],
 });
 

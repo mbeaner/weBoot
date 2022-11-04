@@ -12,7 +12,7 @@ const server = new ApolloServer({
   resolvers,
   context: authMiddleware,
 });
-const routes = require('./routes/index.js');
+// const routes = require('./routes/index.js');
 
 app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 app.use(express.json({ limit: "50mb" }));
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-app.use(routes);
+// app.use(routes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
