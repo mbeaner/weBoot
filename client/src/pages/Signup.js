@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import Auth from '../utils/auth';
-import { ADD_USER } from '../utils/mutations';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import Auth from "../utils/auth";
+import { ADD_USER } from "../utils/mutations";
 
 function Signup(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [formState, setFormState] = useState({ email: "", password: "" });
   const [addUser] = useMutation(ADD_USER);
 
   const handleFormSubmit = async (event) => {
@@ -31,50 +31,50 @@ function Signup(props) {
   };
 
   const containerStyle = {
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: "100vw",
+    height: "100vh",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   };
   const wrapperStyle = {
-    padding: '20px',
-    width: '40%',
-    backgroundColor: 'white',
+    padding: "20px",
+    width: "40%",
+    backgroundColor: "white",
   };
   const titleStyle = {
-    fontSize: '24px',
-    fontWeight: '300',
+    fontSize: "24px",
+    fontWeight: "300",
   };
   const formStyle = {
-    display: 'flex',
-    flexWrap: 'wrap',
+    display: "flex",
+    flexWrap: "wrap",
   };
   const inputStyle = {
-    flex: '1',
-    minWidth: '40%',
-    margin: '20px 10px 0px 0px',
-    padding: '10px',
+    flex: "1",
+    minWidth: "40%",
+    margin: "20px 10px 0px 0px",
+    padding: "10px",
   };
   const pStyle = {
-    fontSize: '12px',
-    margin: '20px 10px 0px 0px',
-    padding: '10px',
+    fontSize: "12px",
+    margin: "20px 10px 0px 0px",
+    padding: "10px",
   };
   const buttonStyle = {
-    width: '40%',
-    border: 'none',
-    padding: '15px 20px',
-    backgroundColor: 'teal',
-    color: 'white',
-    cursor: 'pointer',
+    width: "40%",
+    border: "none",
+    padding: "15px 20px",
+    backgroundColor: "teal",
+    color: "white",
+    cursor: "pointer",
   };
 
   return (
-    <div classname="container" style={containerStyle}>
-      <div classname="wrapper" style={wrapperStyle}>
+    <div className="container" style={containerStyle}>
+      <div className="wrapper" style={wrapperStyle}>
         <div className="title" style={titleStyle}>
-          {' '}
+          {" "}
           CREATE AN ACCOUNT
         </div>
         <form style={formStyle} onSubmit={handleFormSubmit}>

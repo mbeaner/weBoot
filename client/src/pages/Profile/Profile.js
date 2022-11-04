@@ -42,6 +42,15 @@ const Profile = () => {
         lastName: data.user.lastName,
         email: data.user.email,
         image: data.user.image,
+<<<<<<< Updated upstream
+=======
+        address: {
+          street: data.user.address?.street,
+          city: data.user.address?.city,
+          state: data.user.address?.state,
+          zip: data.user.address?.zip,
+        },
+>>>>>>> Stashed changes
       });
     }
   }, [data]);
