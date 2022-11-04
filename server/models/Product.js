@@ -60,6 +60,9 @@ const productSchema = new Schema({
       },
     },
   ],
+  id: {
+    type: String,
+  },
 });
 
 const Product = model('Product', productSchema);

@@ -10,6 +10,9 @@ const orderSchema = new Schema({
   products: [
     Product.schema
   ],
+  id: {
+    type: String,
+  }
 });
 
 const Order = model('Order', orderSchema);

@@ -9,12 +9,21 @@ const typeDefs = gql`
     orders: [Order]
     image: String
     password: String
+    address: Address
+  }
+
+  type Address {
+    street: String
+    city: String
+    state: String
+    zip: String
   }
 
   type Order {
     _id: ID
     purchaseDate: String
     products: [Product]
+    id: String
   }
 
   type Variant {
@@ -41,6 +50,7 @@ const typeDefs = gql`
     reviews: [Review]
     upc: Int
     variants: [Variant]
+    id: String
   }
 
   type Checkout {
@@ -58,6 +68,14 @@ const typeDefs = gql`
     product(_id: ID!): Product
     order(_id: ID!): Order
     checkout(products: [ID]!): Checkout
+    address: Address
+  }
+
+  input AddressInput {
+    street: String
+    city: String
+    state: String
+    zip: String
   }
 
   type Mutation {
@@ -74,6 +92,7 @@ const typeDefs = gql`
       email: String
       password: String
       image: String
+      address: AddressInput
     ): User
     login(email: String!, password: String!): Auth
   }
