@@ -7,8 +7,8 @@ import { UPDATE_USER } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { FaEdit } from "react-icons/fa/index.esm.js";
 import $ from "jquery";
-import { Image, Form, Orders } from "./components";
-import './style.css'
+import { Form, Orders, Address } from "./components";
+import "./style.css";
 // import AvatarEditor from "react-avatar-editor";
 // import Dropzone from "react-dropzone";
 
@@ -20,6 +20,12 @@ const Profile = () => {
     email: null,
     password: null,
     image: null,
+    address: {
+      street: null,
+      city: null,
+      state: null,
+      zip: null,
+    },
   });
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
@@ -42,6 +48,12 @@ const Profile = () => {
         lastName: data.user.lastName,
         email: data.user.email,
         image: data.user.image,
+        address: {
+          street: data.user.address.street,
+          city: data.user.address.city,
+          state: data.user.address.state,
+          zip: data.user.address.zip,
+        },
       });
     }
   }, [data]);
@@ -89,6 +101,7 @@ const Profile = () => {
     const changed = value !== defaultValue;
 
     setChanged(changed);
+
     console.log("name", name, "value", value);
     if (changed) {
       setEditing(true);
@@ -97,10 +110,19 @@ const Profile = () => {
       setShowPasswordConfirm(false);
       $('[name="passwordConfirm"]').val("");
     }
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    if (name.includes("address")) {
+      const address = { ...formState.address };
+      address[name.split("-")[1]] = value;
+      setFormState({
+        ...formState,
+        address,
+      });
+    } else {
+      setFormState({
+        ...formState,
+        [name]: value,
+      });
+    }
   };
 
   const handleClick = async (e) => {
@@ -168,7 +190,20 @@ const Profile = () => {
           <FaEdit id="edit-icon" />
         </Col>
       </Row>
-      <Orders orders={userData.orders} />
+      <Row>
+        <Col xs={4}>
+          <h2 id="order-title">Order History</h2>
+          <Orders orders={userData.orders} />
+        </Col>
+        <Col xs={4}>
+          <h2 id="address-title">Address</h2>
+          <Address
+            address={userData.address}
+            handleInputChange={handleInputChange}
+            handleFormSubmit={handleFormSubmit}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 };

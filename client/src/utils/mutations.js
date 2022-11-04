@@ -38,6 +38,7 @@ export const UPDATE_USER = gql`
     $email: String
     $password: String
     $image: String
+    $address: AddressInput
   ) {
     updateUser(
       firstName: $firstName
@@ -45,12 +46,19 @@ export const UPDATE_USER = gql`
       email: $email
       password: $password
       image: $image
+      address: $address
     ) {
       _id
       firstName
       lastName
       email
       image
+      address {
+        street
+        city
+        state
+        zip
+      }
     }
   }
 `;
