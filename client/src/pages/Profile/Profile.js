@@ -49,10 +49,10 @@ const Profile = () => {
         email: data.user.email,
         image: data.user.image,
         address: {
-          street: data.user.address.street,
-          city: data.user.address.city,
-          state: data.user.address.state,
-          zip: data.user.address.zip,
+          street: data.user.address?.street,
+          city: data.user.address?.city,
+          state: data.user.address?.state,
+          zip: data.user.address?.zip,
         },
       });
     }
