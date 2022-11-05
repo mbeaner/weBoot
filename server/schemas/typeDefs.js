@@ -27,6 +27,7 @@ const typeDefs = gql`
   }
 
   type Variant {
+    id: Int
     size: String
     color: String
     inventory: Int
@@ -41,6 +42,7 @@ const typeDefs = gql`
   type Product {
     _id: ID
     title: String
+    images: [String]
     description: String
     category: String
     price: Int

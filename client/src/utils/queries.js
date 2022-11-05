@@ -41,13 +41,18 @@ export const QUERY_ALL_PRODUCTS = gql`
   {
     products {
       _id
-      name
+      title
+      images
       description
+      category
       price
       quantity
-      category {
-        name
-      }
+      compareAtPrice
+      vendor
+      tags
+      reviews
+      upc
+      variants
     }
   }
 `;
