@@ -12,14 +12,22 @@ const Orders = ({ orders }) => {
   }, [orders]);
   return (
     <>
+      {orderData.length === 0 && (
+        <Card className="my-3 order-card mx-4 p-3 rounded order-card">
+          <Card.Header as="h5">No Orders Yet</Card.Header>
+        </Card>
+      )}
       {orderData.map((order) => (
-        <Card key={order._id || order.id} className="my-3 mx-4 p-3 rounded order-card">
+        <Card
+          key={order._id || order.id}
+          className="my-3 mx-4 p-3 rounded order-card"
+        >
           <Card.Header as="h5">
             {DateTime.fromMillis(Number(order.purchaseDate)).toLocaleString(
-              DateTime.DATETIME_MED
+              DateTime.DATE_MED
             )}
           </Card.Header>
-          <Card.Body>
+          <Card.Body className='order-body'>
             <Card.Title>
               Order Total: $
               {order.products
@@ -27,7 +35,10 @@ const Orders = ({ orders }) => {
                 .toFixed(2)}
             </Card.Title>
             {order.products.map((product) => (
-              <span key={`${order._id || order.id}-${product._id || product.id}`} className="d-block m-3">
+              <span
+                key={`${order._id || order.id}-${product._id || product.id}`}
+                className="d-block m-3"
+              >
                 <hr />
                 {product.title} - ${product.price}
               </span>

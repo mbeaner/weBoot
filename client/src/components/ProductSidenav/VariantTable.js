@@ -1,6 +1,7 @@
 import { TabulatorFull as Tabulator } from "tabulator-tables";
 import React, { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import VariantCard from "./VariantCard";
 // import { ImageSelect } from "../index.js";
 import $ from "jquery";
 // import axios from "axios";
@@ -21,6 +22,7 @@ export default function VariantTable({ id, title, variants, setTable }) {
       responsiveLayout: "collapse",
       columnDefaults: {
         responsive: 0,
+        visible:false,
         editor: "input",
         editable: (cell) => {
           return cell.getRow().isSelected();
@@ -108,6 +110,14 @@ export default function VariantTable({ id, title, variants, setTable }) {
         },
         { title: "Tax Code", field: "tax_code" },
       ],
+      rowFormatter: (row) => {
+        const data = row.getData();
+        if (!data) return;
+        const element = row.getElement();
+        while (element.firstChild) element.removeChild(element.firstChild);
+        const card = VariantCard(data);
+        element.innerHTML = card;
+      },
     });
 
     varTable.on("rowContext", (e, row) => {

@@ -69,7 +69,7 @@ export default function ProductForm({ product }) {
       "price",
       "category",
       "description",
-      "reviews",
+      // "reviews",
       "tags",
     ];
     console.log("product changed", product);
@@ -95,23 +95,33 @@ export default function ProductForm({ product }) {
         onChange={handleChanges}
         onSubmit={handleSubmit}
       >
-        {fields.map((field, i) => (
-          <Row className="mb-3" key={`${field}-row`}>
-            <Form.Group as={Row}>
-              <Form.Label key={`${field}-label`} column sm="2">
-                {startCase(field)}
-              </Form.Label>
-              <Col sm="10">
-                <Form.Control
-                  type="text"
-                  id={field}
-                  key={field}
-                  defaultValue={product[field]}
-                />
-              </Col>
-            </Form.Group>
-          </Row>
-        ))}
+        {fields.map((field, i) => {
+          const value =
+            field === "tags" ? product[field].join(", ") : product[field];
+          return (
+            <Row className="mb-3" key={`${field}-row`}>
+              <Form.Group as={Row}>
+                <Form.Label
+                  className="product-label"
+                  key={`${field}-label`}
+                  column
+                  sm="2"
+                >
+                  {startCase(field)}
+                </Form.Label>
+                <Col sm="10">
+                  <Form.Control
+                    type="text"
+                    id={field}
+                    key={field}
+                    defaultValue={value}
+                    className="product-field"
+                  />
+                </Col>
+              </Form.Group>
+            </Row>
+          );
+        })}
         <Row className="justify-content-center f">
           <Button
             disabled

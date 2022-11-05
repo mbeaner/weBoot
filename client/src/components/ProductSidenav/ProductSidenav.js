@@ -6,11 +6,10 @@ import {
   Carousel,
   ProductForm,
   VariantTable,
-  ContentLoading,
+  Variants,
+  // ContentLoading,
 } from "./index.js";
 import $ from "jquery";
-import axios from "axios";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { BsCheck2Square } from "react-icons/bs/index.esm.js";
 import { ImCancelCircle } from "react-icons/im/index.esm.js";
@@ -175,12 +174,13 @@ export default function ProductSidenav({
         <Row id="sidenav-body" className="">
           <Carousel images={images} show={show} />
           <ProductForm product={product} />
-          <VariantTable
+          <Variants variants={variants} />
+          {/* <VariantTable
             id={id}
             title={title}
             variants={variants}
             setTable={setTable}
-          />
+          /> */}
         </Row>
         {/* <Row>
           <ContentLoading className="p-0" />

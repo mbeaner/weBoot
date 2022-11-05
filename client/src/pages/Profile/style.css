@@ -26,8 +26,9 @@
   background-color: rgba(61, 202, 202, 0.854);
   padding: 10px;
   border-radius: 20px;
-
+  transition: all .2s ease-out;
 }
+
 
 #order-title {
   color: white;
@@ -38,10 +39,25 @@
   margin-left: 45px;
 }
 
+.order-card{
+  background-color: rgba(61, 202, 202, 0.854);
+  padding: 10px;
+  border-radius: 20px;
+}
+
 h2 {
   font-size: 20px;
 }
 
 .btn-success {
   background-color: #18355B;
+}
+
+h5.card-header{
+   background-color: rgba(132, 247, 247, 0.796);
+  
+}
+
+.order-body{
+  background-color: rgba(253, 253, 253, 0.564);
 }

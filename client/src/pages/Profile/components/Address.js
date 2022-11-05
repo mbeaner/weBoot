@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, Form, Button } from "react-bootstrap";
 
-const Address = ({ address, handleInputChange, handleFormSubmit }) => {
+const Address = ({ address, handleInputChange, handleFormSubmit,editingAddress, setEditingAddress}) => {
   return (
     <Card id="address-card">
       <Card.Body>
@@ -38,17 +38,30 @@ const Address = ({ address, handleInputChange, handleFormSubmit }) => {
               name="address-zip"
             />
           </Form.Group>
-          <Button
-            className="m-3"
-            variant="success"
-            defaultValue="m-3"
-            type="submit"
+          <Form.Group
+            id="address-buttons"
+            hidden={!editingAddress}
+            disabled={!editingAddress}
           >
-            Save
-          </Button>
-          <Button variant="danger" defaultValue="m-3" type="reset">
-            Cancel
-          </Button>
+            <Button
+              className="m-3"
+              variant="success"
+              defaultValue="m-3"
+              type="submit"
+            >
+              Save
+            </Button>
+            <Button
+              variant="danger"
+              defaultValue="m-3"
+              type="reset"
+              onClick={() => {
+                setEditingAddress(false);
+              }}
+            >
+              Cancel
+            </Button>
+          </Form.Group>
         </Form>
       </Card.Body>
     </Card>

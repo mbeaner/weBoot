@@ -38,6 +38,7 @@ const Profile = () => {
   // const [imageChanged, setImageChanged] = useState(false);
   // const [editor, setEditor] = useState(null);
   // const userData = data?.user || {};
+  const [editingAddress, setEditingAddress] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -92,25 +93,24 @@ const Profile = () => {
         variables: { ...formState },
       });
       console.log("data", data);
+      setUserData(data.updateUser);
+      setEditing(false);
+      setEditingAddress(false);
+      setChanged(false);
+      setShowPasswordConfirm(false);
+      $('[name="passwordConfirm"]').val("");
+      $('[name="password"]').val("");
     } catch (err) {
       console.error(err);
     }
   };
   const handleInputChange = (event) => {
     const { name, value, defaultValue } = event.target;
-    const changed = value !== defaultValue;
+      const changed = value !== defaultValue;
 
-    setChanged(changed);
-
-    console.log("name", name, "value", value);
-    if (changed) {
-      setEditing(true);
-      if (name.includes("password")) setShowPasswordConfirm(true);
-    } else {
-      setShowPasswordConfirm(false);
-      $('[name="passwordConfirm"]').val("");
-    }
     if (name.includes("address")) {
+      if (changed) setEditingAddress(true)
+      else setEditingAddress(false)
       const address = { ...formState.address };
       address[name.split("-")[1]] = value;
       setFormState({
@@ -118,6 +118,15 @@ const Profile = () => {
         address,
       });
     } else {
+      setChanged(changed);
+      console.log("name", name, "value", value);
+      if (changed) {
+        setEditing(true);
+        if (name.includes("password")) setShowPasswordConfirm(true);
+      } else {
+        setShowPasswordConfirm(false);
+        $('[name="passwordConfirm"]').val("");
+      }
       setFormState({
         ...formState,
         [name]: value,
@@ -125,54 +134,54 @@ const Profile = () => {
     }
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    const target = $(e.target);
-    const type =
-      target.attr("id")?.split("-")[1] ||
-      target.parent().attr("id").split("-")[1] ||
-      target.attr("id");
-    console.log("type", type);
-    switch (type) {
-      case "icon":
-        setEditing(!editing);
-        break;
-      // case "save":
-      //   setImageChanged(false);
-      //   try {
-      //     console.log("formState", formState);
-      //     if (!formState.password) delete formState.password;
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   const target = $(e.target);
+  //   const type =
+  //     target.attr("id")?.split("-")[1] ||
+  //     target.parent().attr("id").split("-")[1] ||
+  //     target.attr("id");
+  //   console.log("type", type);
+  //   switch (type) {
+  //     case "icon":
+  //       setEditing(!editing);
+  //       break;
+  //     // case "save":
+  //     //   setImageChanged(false);
+  //     //   try {
+  //     //     console.log("formState", formState);
+  //     //     if (!formState.password) delete formState.password;
 
-      //     const { data } = await updateUser({
-      //       variables: { ...formState },
-      //     });
-      //     console.log("data", data);
-      //     const id = userData._id;
-      //     if (editor) {
-      //       const canvas = editor.getImage();
-      //       const img = editor.getImageScaledToCanvas().toDataURL();
-      //       console.log("canvas", canvas, "img", typeof img);
-      //       const newImg = { data: img, contentType: "image/png" };
-      //       axios.post(`image/${id}`, { newImg }).then((res) => {
-      //         console.log("res", res);
-      //       });
-      //     }
-      //   } catch (err) {
-      //     console.error(err);
-      //   }
-      //   break;
-      // case "cancel":
-      //   setImageChanged(false);
-      //   setImagePreview(null);
-      //   break;
-      default:
-        break;
-    }
-  };
+  //     //     const { data } = await updateUser({
+  //     //       variables: { ...formState },
+  //     //     });
+  //     //     console.log("data", data);
+  //     //     const id = userData._id;
+  //     //     if (editor) {
+  //     //       const canvas = editor.getImage();
+  //     //       const img = editor.getImageScaledToCanvas().toDataURL();
+  //     //       console.log("canvas", canvas, "img", typeof img);
+  //     //       const newImg = { data: img, contentType: "image/png" };
+  //     //       axios.post(`image/${id}`, { newImg }).then((res) => {
+  //     //         console.log("res", res);
+  //     //       });
+  //     //     }
+  //     //   } catch (err) {
+  //     //     console.error(err);
+  //     //   }
+  //     //   break;
+  //     // case "cancel":
+  //     //   setImageChanged(false);
+  //     //   setImagePreview(null);
+  //     //   break;
+  //     default:
+  //       break;
+  //   }
+  // };
   // const setEditorRef = (editor) => setEditor(editor);
   return (
     <Container fluid>
-      <Row>
+      <Row className="justify-content-center form-container">
         {/* <Col xs={2}>
           <Image/>
         </Col> */}
@@ -182,15 +191,18 @@ const Profile = () => {
             handleFormSubmit={handleFormSubmit}
             userData={userData}
             editing={editing}
+            setEditing={setEditing}
             showPasswordConfirm={showPasswordConfirm}
+            setShowPasswordConfirm={setShowPasswordConfirm}
             changed={changed}
+            setChanged={setChanged}
           />
         </Col>
-        <Col id="col-icon" hidden={!loggedIn} onClick={handleClick}>
+        {/* <Col id="col-icon" hidden={!loggedIn} onClick={handleClick}>
           <FaEdit id="edit-icon" />
-        </Col>
+        </Col> */}
       </Row>
-      <Row>
+      <Row className="justify-content-center">
         <Col xs={4}>
           <h2 id="order-title">Order History</h2>
           <Orders orders={userData.orders} />
@@ -201,6 +213,8 @@ const Profile = () => {
             address={userData.address}
             handleInputChange={handleInputChange}
             handleFormSubmit={handleFormSubmit}
+            editingAddress={editingAddress}
+            setEditingAddress={setEditingAddress}
           />
         </Col>
       </Row>

@@ -1,13 +1,16 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
 import React from "react";
 
-export default function ProfileForm ({
+export default function ProfileForm({
   handleInputChange,
   handleFormSubmit,
   userData,
   editing,
+  setEditing,
   showPasswordConfirm,
+  setShowPasswordConfirm,
   changed,
+  setChanged,
 }) {
   return (
     <Form
@@ -47,7 +50,7 @@ export default function ProfileForm ({
           />
         </Form.Group>
       </Row>
-      <Row className="mb-3" disabled={!editing} hidden={!editing}>
+      <Row className="mb-3">
         <Form.Group as={Col} controlId="formGridPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -81,9 +84,14 @@ export default function ProfileForm ({
         type="reset"
         disabled={!changed}
         hidden={!changed}
+        onClick={() => {
+          setEditing(false);
+          setShowPasswordConfirm(false);
+          setChanged(false);
+        }}
       >
         Cancel
       </Button>
     </Form>
   );
-};
+}
