@@ -1,92 +1,94 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { TabulatorFull as Tabulator } from 'tabulator-tables';
-import 'tabulator-tables/dist/css/tabulator_bootstrap5.min.css';
-import { Row } from 'react-bootstrap';
+import { TabulatorFull as Tabulator } from "tabulator-tables";
+import "tabulator-tables/dist/css/tabulator_bootstrap5.min.css";
+import { Row } from "react-bootstrap";
 import {
   ProductCard,
   // eslint-disable-next-line no-unused-vars
   EmpProductFilter,
   ProductSidenav,
-} from '../components/index.js';
-import { FilterSidenav as Filters } from '../components/index.js';
+} from "../components/index.js";
+import { FilterSidenav as Filters } from "../components/index.js";
 
-import '../App.css';
-import 'bootstrap';
-import { ToastContainer } from 'react-toastify';
-import Cart from '../components/Cart';
+import "../App.css";
+import "bootstrap";
+import { ToastContainer } from "react-toastify";
+import Cart from "../components/Cart";
+import { useQuery } from "@apollo/client";
+import { QUERY_PRODUCTS } from "../utils/queries";
 
 function ProductTable() {
   // eslint-disable-next-line no-unused-vars
   const [products, setProducts] = useState([
-    {
-      id: 1,
-      images: ['/assets/images/send-help.png'],
-      title: 'Send Help',
-      description: 'Send Help',
-      category: 'Shirts',
-      price: 25,
-      compare_at_price: null,
-      vendor: 'weBoot',
-      tags: ['Funny', 'Shirts', 'Cotton', 'Top', 'Graphic'],
-      reviews: [{ rating: 3, body: 'This is a great shirt!' }],
-      upc: Math.floor(Math.random() * 1000000000),
-      variants: [
-        {
-          id: 1,
-          size: 'S',
-          color: 'Black',
-          inventory: 0,
-          image: '/assets/images/send-help.png',
-        },
-        {
-          id: 2,
-          size: 'M',
-          color: 'Black',
-          inventory: 15,
-          image: '/assets/images/send-help.png',
-        },
-        {
-          id: 3,
-          size: 'L',
-          color: 'Black',
-          inventory: 12,
-          image: '/assets/images/send-help.png',
-        },
-        {
-          id: 4,
-          size: 'XL',
-          color: 'Black',
-          inventory: 7,
-          image: '/assets/images/send-help.png',
-        },
-      ],
-    },
-    {
-      id: 2,
-      images: ['/assets/images/mim-hat.png'],
-      title: 'Mim Hat',
-      sku: 'MH-001',
-      description: 'Imitation is the sincerest form of flattery',
-      category: 'Hats',
-      price: 100,
-      compare_at_price: 120,
-      vendor: 'weBoot',
-      tags: ['Hats', 'Headwear', 'Straw', 'Summer', 'Beach', 'Garden'],
-      reviews: [{ rating: 4, body: 'This is a great hat!' }],
-      upc: Math.floor(Math.random() * 1000000000),
-      variants: [
-        {
-          id: 1,
-          size: 'OSFM',
-          color: 'Red',
-          inventory: 100,
-          image: '/assets/images/mim-hat.png',
-        },
-      ],
-    },
+    //   {
+    //     id: 1,
+    //     images: ['/assets/images/send-help.png'],
+    //     title: 'Send Help',
+    //     description: 'Send Help',
+    //     category: 'Shirts',
+    //     price: 25,
+    //     compareAtPrice: null,
+    //     vendor: 'weBoot',
+    //     tags: ['Funny', 'Shirts', 'Cotton', 'Top', 'Graphic'],
+    //     reviews: [{ rating: 3, body: 'This is a great shirt!' }],
+    //     upc: Math.floor(Math.random() * 1000000000),
+    //     variants: [
+    //       {
+    //         id: 1,
+    //         size: 'S',
+    //         color: 'Black',
+    //         inventory: 0,
+    //         image: '/assets/images/send-help.png',
+    //       },
+    //       {
+    //         id: 2,
+    //         size: 'M',
+    //         color: 'Black',
+    //         inventory: 15,
+    //         image: '/assets/images/send-help.png',
+    //       },
+    //       {
+    //         id: 3,
+    //         size: 'L',
+    //         color: 'Black',
+    //         inventory: 12,
+    //         image: '/assets/images/send-help.png',
+    //       },
+    //       {
+    //         id: 4,
+    //         size: 'XL',
+    //         color: 'Black',
+    //         inventory: 7,
+    //         image: '/assets/images/send-help.png',
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     id: 2,
+    //     images: ['/assets/images/mim-hat.png'],
+    //     title: 'Mim Hat',
+    //     sku: 'MH-001',
+    //     description: 'Imitation is the sincerest form of flattery',
+    //     category: 'Hats',
+    //     price: 100,
+    //     compareAtPrice: 120,
+    //     vendor: 'weBoot',
+    //     tags: ['Hats', 'Headwear', 'Straw', 'Summer', 'Beach', 'Garden'],
+    //     reviews: [{ rating: 4, body: 'This is a great hat!' }],
+    //     upc: Math.floor(Math.random() * 1000000000),
+    //     variants: [
+    //       {
+    //         id: 1,
+    //         size: 'OSFM',
+    //         color: 'Red',
+    //         inventory: 100,
+    //         image: '/assets/images/mim-hat.png',
+    //       },
+    //     ],
+    //   },
   ]);
-  const [product, setProduct] = useState({});
+  const [product, setProduct] = useState([]);
   const [showProduct, setShowProduct] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -95,21 +97,39 @@ function ProductTable() {
     if (showProduct) setShowFilters(false);
   }, [showProduct]);
 
+  const { data } = useQuery(QUERY_PRODUCTS);
   useEffect(() => {
-    const table = new Tabulator('#product-table', {
+    if (!data) return;
+    console.log("products", data.products);
+    const { products } = data;
+    let newProducts = [];
+    products.forEach((product) => {
+      const { variants } = product;
+      const newVariants = [];
+      variants.forEach((variant) => {
+        newVariants.push({ ...variant });
+      });
+      newProducts.push({ ...product, variants: newVariants });
+    });
+    setProducts(newProducts);
+  }, [data]);
+
+  useEffect(() => {
+    console.log("products", products);
+    const table = new Tabulator("#product-table", {
       data: products,
-      layout: 'fitColumns',
-      placeholder: 'Nothing to see here...',
-      height: '100%',
+      layout: "fitColumns",
+      placeholder: "Nothing to see here...",
+      height: "100%",
       columnDefaults: {
         visible: false,
       },
       columns: [
         {
-          title: 'weBoot',
-          field: 'weboot',
+          title: "weBoot",
+          field: "weboot",
           visible: true,
-          headerHozAlign: 'center',
+          headerHozAlign: "center",
           headerSort: false,
           titleFormatter: function () {
             return `
@@ -118,8 +138,8 @@ function ProductTable() {
           },
         },
         {
-          title: 'Image',
-          field: 'images',
+          title: "Image",
+          field: "images",
           // formatter: (cell) => {
           //   const image = cell.getValue()[0]
           //   console.log('image', image)
@@ -128,40 +148,44 @@ function ProductTable() {
           maxWidth: 100,
         },
         {
-          title: 'Title',
-          field: 'title',
+          title: "Title",
+          field: "title",
         },
         {
-          title: 'Description',
-          field: 'description',
+          title: "Description",
+          field: "description",
         },
         {
-          title: 'Category',
-          field: 'category',
+          title: "Category",
+          field: "category",
         },
         {
-          title: 'Vendor',
-          field: 'vendor',
+          title: "Vendor",
+          field: "vendor",
         },
         {
-          title: 'Price',
-          field: 'price',
+          title: "Price",
+          field: "price",
         },
         {
-          title: 'Compare At Price',
-          field: 'compare_at_price',
+          title: "Compare At Price",
+          field: "compareAtPrice",
         },
         {
-          title: 'Reviews',
-          field: 'reviews',
+          title: "Reviews",
+          field: "reviews",
         },
         {
-          title: 'UPC',
-          field: 'upc',
+          title: "UPC",
+          field: "upc",
         },
         {
-          title: 'Tags',
-          field: 'tags',
+          title: "Tags",
+          field: "tags",
+        },
+        {
+          title: "Variants",
+          field: "variants",
         },
       ],
       rowFormatter: (row) => {
@@ -173,11 +197,11 @@ function ProductTable() {
         element.innerHTML = card;
       },
     });
-    table.on('tableBuilt', function () {
-      console.log('table built');
+    table.on("tableBuilt", function () {
+      console.log("table built");
     });
-    table.on('rowClick', function (e, row) {
-      console.log('row click');
+    table.on("rowClick", function (e, row) {
+      console.log("row click", row.getData());
       setProduct(row.getData());
       setShowProduct(true);
       setLoading(true);
@@ -192,6 +216,7 @@ function ProductTable() {
         product={product}
         loading={loading}
         setLoading={setLoading}
+        variants={product.variants}
       />
       <Filters show={showFilters} setShow={setShowFilters} />
       <ToastContainer />

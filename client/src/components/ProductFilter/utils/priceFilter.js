@@ -1,5 +1,5 @@
 const priceFilter = (row, value, field) => {
-  const onSale = row.compare_at_price;
+  const onSale = row.compareAtPrice;
   field = field.split("-")[1];
   const { price } = row;
   const { radio, min, max } = value;
@@ -10,7 +10,7 @@ const priceFilter = (row, value, field) => {
     } else if (radio === "regular") {
       return !onSale;
     }
-  } else if (value === 0 || value === 10000 || !value) { 
+  } else if (value === 0 || value === 10000 || !value) {
     return true;
   } else {
     return price >= min && price <= max;

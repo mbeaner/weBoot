@@ -33,10 +33,11 @@ width: 100%;
   background-color: white;
 }
 
-.card-img-top{
+.product-card-image{
   padding: 5px;
   background: #eee;
   margin: 0;
+  max-height: 350px;
 }
 
 .tabulator-row{
@@ -85,3 +86,17 @@ width: 100%;
   transform: scale(1.25);
 }
 
+.onSale{
+  color: red;
+  text-decoration: line-through;
+}
+
+.card-price{
+  font-size: 1.75em;
+  font-weight: 800;
+}
+
+.product-card-title{
+  font-size: 1.5em;
+  font-weight: 800;
+}

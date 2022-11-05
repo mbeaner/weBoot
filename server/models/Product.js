@@ -20,14 +20,10 @@ const productSchema = new Schema({
     required: true,
     min: 0.99,
   },
-  quantity: {
-    type: Number,
-    min: 0,
-    default: 0,
-  },
   compareAtPrice: {
     type: Number,
     min: 0.99,
+    default: null
   },
   vendor: {
     type: String,
@@ -71,9 +67,6 @@ const productSchema = new Schema({
       },
     },
   ],
-  id: {
-    type: String,
-  },
 });
 
 const Product = model('Product', productSchema);

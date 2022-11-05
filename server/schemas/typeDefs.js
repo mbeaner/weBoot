@@ -23,7 +23,6 @@ const typeDefs = gql`
     _id: ID
     purchaseDate: String
     products: [Product]
-    id: String
   }
 
   type Variant {
@@ -52,7 +51,6 @@ const typeDefs = gql`
     reviews: [Review]
     upc: Int
     variants: [Variant]
-    id: String
   }
 
   type Checkout {

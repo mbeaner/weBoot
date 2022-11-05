@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
 import { Offcanvas, Button, Row, Col } from "react-bootstrap";
 import { uniq, pick } from "lodash";
@@ -26,8 +27,8 @@ export default function ProductSidenav({
   setShow,
   loading,
   setLoading,
+  variants
 }) {
-  const [variants, setVariants] = useState([]);
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
   const [id, setId] = useState("");
@@ -37,20 +38,20 @@ export default function ProductSidenav({
   useEffect(() => {
     if (!show || !product.id) return;
     console.log("sideNav product", product);
-    setVariants(product.variants);
-    setTitle(product.title);
-    setId(product.id);
-  }, [show, product]);
+    setTitle(product?.title);
+    setId(product?.id);
+  }, [show, product]); 
 
   useEffect(() => {
     console.log("variants", variants);
+    if (!variants) return;
     const imgArr = uniq(variants.map((v) => v.image)).filter((image) => image);
     console.log(imgArr);
     setImages(imgArr);
     setLoading(false);
     // const data = variants;
     // setOriginalData(data);
-  }, [setLoading, variants]);
+  }, [variants]);
 
   useEffect(() => {
     console.log("loading", loading);
@@ -105,7 +106,6 @@ export default function ProductSidenav({
       onHide={() => {
         setShow(false);
         setLoading(false);
-        setVariants([]);
         setTitle("");
         setId("");
         setImages([]);
@@ -121,7 +121,6 @@ export default function ProductSidenav({
             onClick={() => {
               setShow(false);
               setLoading(false);
-              setVariants([]);
               setTitle("");
               setId("");
               setImages([]);

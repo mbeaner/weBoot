@@ -1,5 +1,5 @@
 import { TabulatorFull as Tabulator } from "tabulator-tables";
-import React, {  useEffect } from "react";
+import React, { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 // import { ImageSelect } from "../index.js";
 import $ from "jquery";
@@ -8,7 +8,6 @@ import $ from "jquery";
 // import { variants } from '../helpers/popSidenav.js'
 
 export default function VariantTable({ id, title, variants, setTable }) {
-
   useEffect(() => {
     console.log("varTable mounted", variants);
     let varTable = new Tabulator("#variant-table", {
@@ -85,8 +84,8 @@ export default function VariantTable({ id, title, variants, setTable }) {
           hozAlign: "center",
         },
         {
-          title: "compare_at_price",
-          field: "compare_at_price",
+          title: "compareAtPrice",
+          field: "compareAtPrice",
           maxWidth: 75,
           formatter: "money",
           hozAlign: "center",
