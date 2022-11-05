@@ -27,7 +27,8 @@ export default function ProductSidenav({
   setShow,
   loading,
   setLoading,
-  variants
+  variants,
+  setVariants,
 }) {
   const [images, setImages] = useState([]);
   const [title, setTitle] = useState("");
@@ -38,64 +39,67 @@ export default function ProductSidenav({
   useEffect(() => {
     if (!show || !product.id) return;
     console.log("sideNav product", product);
-    setTitle(product?.title);
-    setId(product?.id);
-  }, [show, product]); 
+    setVariants(product.variants);
+    setTitle(product.title);
+    setId(product.id);
+    setLoading(false)
+  }, [show, product]);
 
   useEffect(() => {
     console.log("variants", variants);
     if (!variants) return;
     const imgArr = uniq(variants.map((v) => v.image)).filter((image) => image);
     console.log(imgArr);
+    setVariants(product.variants)
     setImages(imgArr);
     setLoading(false);
     // const data = variants;
     // setOriginalData(data);
   }, [variants]);
 
-  useEffect(() => {
-    console.log("loading", loading);
-    if (loading) {
-      $("#content-loading").show();
-      $("#sidenav-body").hide();
-    } else {
-      $("#content-loading").fadeOut(250);
-      $("#sidenav-body").fadeIn(400);
-    }
-  }, [loading]);
+  // useEffect(() => {
+  //   console.log("loading", loading);
+  //   if (loading) {
+  //     $("#content-loading").show();
+  //     $("#sidenav-body").hide();
+  //   } else {
+  //     $("#content-loading").fadeOut(250);
+  //     $("#sidenav-body").fadeIn(400);
+  //   }
+  // }, [loading]);
 
-  const handleClick = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const action = e.target.id.split("-")[0];
-    console.log("action:", action);
-    if (action === "cancel") {
-      console.log("cancel");
-      table.setData(`/variants/${id}`);
-      $("#submit-var-changes").prop("disabled", true).addClass("opacity-0");
-      $("#cancel-var-changes").prop("disabled", true).addClass("opacity-0");
-    } else if (action === "submit") {
-      const rows = table.getSelectedRows();
-      const dataFields = ["id", "name", "size", "color", "inventory"];
-      // let updated = 0
-      rows.forEach(async (row) => {
-        const data = row.getData();
-        const update = pick(data, dataFields);
-        console.log("update:", update);
-        const res = await axios.put(`/variants/update`, update);
-        console.log("res:", res);
-        row.deselect();
-        $("#submit-var-changes").addClass("opacity-0");
-        if (res) {
-          toast.success(`${data.sku} / ${data.title} updated`);
-          $("#submit-var-changes").prop("disabled", true).addClass("opacity-0");
-          $("#cancel-var-changes").prop("disabled", true).addClass("opacity-0");
-        } else {
-          toast.error(`${data.sku} / ${data.title} failed to update`);
-        }
-      });
-    }
-  };
+  // const handleClick = async (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   const action = e.target.id.split("-")[0];
+  //   console.log("action:", action);
+  //   if (action === "cancel") {
+  //     console.log("cancel");
+  //     table.setData(`/variants/${id}`);
+  //     $("#submit-var-changes").prop("disabled", true).addClass("opacity-0");
+  //     $("#cancel-var-changes").prop("disabled", true).addClass("opacity-0");
+  //   } else if (action === "submit") {
+  //     const rows = table.getSelectedRows();
+  //     const dataFields = ["id", "name", "size", "color", "inventory"];
+  //     // let updated = 0
+  //     rows.forEach(async (row) => {
+  //       const data = row.getData();
+  //       const update = pick(data, dataFields);
+  //       console.log("update:", update);
+  //       const res = await axios.put(`/variants/update`, update);
+  //       console.log("res:", res);
+  //       row.deselect();
+  //       $("#submit-var-changes").addClass("opacity-0");
+  //       if (res) {
+  //         toast.success(`${data.sku} / ${data.title} updated`);
+  //         $("#submit-var-changes").prop("disabled", true).addClass("opacity-0");
+  //         $("#cancel-var-changes").prop("disabled", true).addClass("opacity-0");
+  //       } else {
+  //         toast.error(`${data.sku} / ${data.title} failed to update`);
+  //       }
+  //     });
+  //   }
+  // };
 
   return (
     <Offcanvas
@@ -106,6 +110,7 @@ export default function ProductSidenav({
       onHide={() => {
         setShow(false);
         setLoading(false);
+        setVariants([]);
         setTitle("");
         setId("");
         setImages([]);
@@ -114,13 +119,14 @@ export default function ProductSidenav({
       <Offcanvas.Header>
         <Col
           className="align-items-start d-flex flex-column"
-          onClick={handleClick}
+          // onClick={handleClick}
         >
           <FaWindowClose
             id="close-filters"
             onClick={() => {
               setShow(false);
               setLoading(false);
+              setVariants([]);
               setTitle("");
               setId("");
               setImages([]);
@@ -176,9 +182,9 @@ export default function ProductSidenav({
             setTable={setTable}
           />
         </Row>
-        <Row>
+        {/* <Row>
           <ContentLoading className="p-0" />
-        </Row>
+        </Row> */}
       </Offcanvas.Body>
     </Offcanvas>
   );

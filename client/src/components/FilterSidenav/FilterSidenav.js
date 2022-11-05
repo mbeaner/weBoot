@@ -17,7 +17,7 @@ import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import "./style.css";
 
-export default function FilterSidenav({show, setShow}) {
+export default function FilterSidenav({show, setShow, table}) {
   const [hover, setHover] = useState(false);
   const [width, setWidth] = useState(400);
 
@@ -115,7 +115,7 @@ export default function FilterSidenav({show, setShow}) {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Row>
-            <CustProductFilter />
+            <CustProductFilter  />
             {/* <ProductFilter /> */}
             {/* <AdvancedFilter /> */}
           </Row>

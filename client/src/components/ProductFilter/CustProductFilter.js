@@ -152,12 +152,13 @@ export default function CustProductFilter() {
       table.removeFilter(field, type, value);
       console.log("removed > new filters", table.getFilters());
     }
+    console.log('tablerows', table.getRows())
     table.addFilter(
       (row) => {
-        console.log("row", row.title);
         if (field === "text") {
           return textFilter(row, value);
         } else if (field === "colors") {
+          console.log("color filter", row, value)
           return colorFilter(row, value);
         } else if (field === "categories") {
           const { category } = row;
@@ -180,6 +181,8 @@ export default function CustProductFilter() {
       "function",
       field
     );
+      console.log("updated > new filters", table.getFilters());
+
     setUpdate(null);
   }, [update]);
 

@@ -12,9 +12,9 @@ button[id^="form-"] {
   height: 50px;
 }
 
-#sidenav-body {
+/* #sidenav-body {
   display: none;
-}
+} */
 
 #product-sidenav {
   width: 95%;
