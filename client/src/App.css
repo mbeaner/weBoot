@@ -2,8 +2,8 @@
 [id^="product-row"], #product-table {
   /* padding: 10px; */
   /* border: 1px solid #ccc; */
-  border-radius: 2px;
-  background: rgb(143, 141, 141);
+  border-radius: 10px;
+  background: rgba(14, 191, 245, 0.3);
   margin: 10px;
 
 }
@@ -16,7 +16,7 @@
 
 #product-table.tabulator .tabulator-tableholder .tabulator-table {
   width: 100%;
-  background-color: #eee;
+  background-color: rgba(14, 191, 245, 0.3);
 }
 
 
@@ -27,11 +27,6 @@ border-radius: 15px;
 padding: 5px;
 font-size: 80%;
 width: 100%;
-}
-
-/* Shannon come back to this */
-.tabulator-headers {
- color: yellow;
 }
 
 .tabulator-row.tabulator-selectable:hover {
@@ -89,3 +84,4 @@ width: 100%;
   color: red;
   transform: scale(1.25);
 }
+
