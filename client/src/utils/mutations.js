@@ -78,7 +78,11 @@ export const ADD_ORDER = gql`
 `;
 
 export const ADD_REVIEW = gql`
-  mutation addReview($reviewText: String!, $reviewRating: Int!, $productId: ID!) {
+  mutation addReview(
+    $reviewText: String!
+    $reviewRating: Int!
+    $productId: ID!
+  ) {
     addReview(
       reviewText: $reviewText
       reviewRating: $reviewRating

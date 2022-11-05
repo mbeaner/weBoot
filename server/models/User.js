@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
-const Order = require("./Order");
-const Address = require("./Address");
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
+const Order = require('./Order');
+const Address = require('./Address');
 
 const userSchema = new Schema({
   firstName: {
@@ -18,7 +18,7 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    match: [/.+@.+\..+/, "Must match an email address!"],
+    match: [/.+@.+\..+/, 'Must match an email address!'],
   },
   password: {
     type: String,
@@ -34,14 +34,14 @@ const userSchema = new Schema({
     type: String,
     default: false,
   },
-  address: {
-    type: Address.schema,
-    default: false,
-  },
+  // address: {
+  //   type: Address.schema,
+  //   default: false,
+  // },
 });
 
-userSchema.pre("save", async function (next) {
-  if (this.isNew || this.isModified("password")) {
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -49,7 +49,7 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
-userSchema.pre("findOneAndUpdate", async function (next) {
+userSchema.pre('findOneAndUpdate', async function (next) {
   const password = this.getUpdate().password;
   if (password) {
     const saltRounds = 10;
@@ -63,6 +63,6 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = model("User", userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;

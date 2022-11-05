@@ -9,6 +9,7 @@
     "start:dev": "concurrently \"cd server && npm run watch\" \"npm run start:client\"",
     "heroku-postbuild": "cd client && npm run build",
     "start": "cd server && npm start",
+    "seed": "cd server && npm run seed",
     "serve": "cd client && npm run build && serve -s build"
   },
   "dependencies": {

@@ -6,6 +6,9 @@ const productSchema = new Schema({
     type: String,
     required: true,
   },
+  images: {
+    type: [String],
+  },
   description: {
     type: String,
   },
@@ -51,6 +54,9 @@ const productSchema = new Schema({
   },
   variants: [
     {
+      id: {
+        type: Number,
+      },
       size: {
         type: String,
       },
