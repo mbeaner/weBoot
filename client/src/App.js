@@ -7,7 +7,7 @@ import {
   createHttpLink,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-import { background } from './components/Background/background';
+
 
 // import Home from './pages/Home';
 // import Signup from './pages/Signup';
